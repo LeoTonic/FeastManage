@@ -1,0 +1,46 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}FeastManage{% endblock %}
+
+{% block head %}
+{{ super() }}
+<!--<link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}?ver={{ app_version }}" type="image/x-icon">-->
+<!--<link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}?ver={{ app_version }}" type="image/x-icon">-->
+<link rel="stylesheet" href = "{{ url_for('static', filename='css/base.css') }}?ver={{ app_version }}">
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/bootstrap-select.min.js') }}?ver={{ app_version }}"></script>
+<script src="{{ url_for('static', filename='js/defaults-ru_RU.min.js') }}?ver={{ app_version }}"></script>
+{% endblock %}
+
+{% block navbar %}
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!--<img src="{{ url_for('static', filename='img/qmt_icon.png') }}?ver={{ app_version }}" alt="qmt_icon"/>-->
+        </div>
+        <div class="navbar-collapse collapse">
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% block page_content %}{% endblock %}
+{% endblock %}
