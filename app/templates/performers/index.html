@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Исполнители{% endblock %}
+{% block head %}
+{{ super() }}
+<!--<link rel="stylesheet" href = "{{ url_for('static', filename='css/accounts.css') }}?ver={{ context['app_version'] }}">-->
+{% endblock %}
+{% block page_content %}
+{% if current_user.is_authenticated %}
+<h1>Привет, {{ current_user.name_first }}</h1>
+{% endif %}
+{% endblock %}

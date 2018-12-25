@@ -6,12 +6,12 @@ div.navbar-header > img {
 }
 
 div.navbar {
-    background-color: #284868;
+    background-color: #A2D9CE;
 }
 a.navbar-brand {
-    color: #eee;
+    color: #888;
 }
 
 ul.navbar-nav > li > a {
-    color: #ddd;
+    color: #666;
 }

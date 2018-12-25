@@ -1,2 +1,4 @@
 .idea/
 venv/
+fmanage-dev.db
+fmanage.db

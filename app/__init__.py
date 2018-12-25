@@ -26,6 +26,9 @@ def create_app(config_name):
     from .performers.views import performers as performers_blueprint
     app.register_blueprint(performers_blueprint)
 
+    from .accounts.views import accounts as accounts_blueprint
+    app.register_blueprint(accounts_blueprint, url_prefix='/accounts')
+
     # register error handlers
     app.register_error_handler(404, page_not_found)
     app.register_error_handler(500, server_error)

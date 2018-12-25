@@ -4,15 +4,9 @@
 
 {% block head %}
 {{ super() }}
-<!--<link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}?ver={{ app_version }}" type="image/x-icon">-->
-<!--<link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}?ver={{ app_version }}" type="image/x-icon">-->
-<link rel="stylesheet" href = "{{ url_for('static', filename='css/base.css') }}?ver={{ app_version }}">
-{% endblock %}
-
-{% block scripts %}
-{{ super() }}
-<script src="{{ url_for('static', filename='js/bootstrap-select.min.js') }}?ver={{ app_version }}"></script>
-<script src="{{ url_for('static', filename='js/defaults-ru_RU.min.js') }}?ver={{ app_version }}"></script>
+<link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}?ver={{ context['app_version'] }}" type="image/x-icon">
+<link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}?ver={{ context['app_version'] }}" type="image/x-icon">
+<link rel="stylesheet" href = "{{ url_for('static', filename='css/base.css') }}?ver={{ context['app_version'] }}">
 {% endblock %}
 
 {% block navbar %}
@@ -25,9 +19,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <!--<img src="{{ url_for('static', filename='img/qmt_icon.png') }}?ver={{ app_version }}" alt="qmt_icon"/>-->
+            <img src="{{ url_for('static', filename='img/appicon.png') }}?ver={{ context['app_version'] }}" alt="appicon"/>
         </div>
         <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('accounts.logout') }}">Выход</a></li>
+                {% endif %}
+            </ul>
         </div>
     </div>
 </div>
