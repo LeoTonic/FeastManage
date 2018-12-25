@@ -20,6 +20,7 @@
                 <span class="icon-bar"></span>
             </button>
             <img src="{{ url_for('static', filename='img/appicon.png') }}?ver={{ context['app_version'] }}" alt="appicon"/>
+            <a class="navbar-brand" href="{{ url_for('performers.index') }}">FeastManage</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">

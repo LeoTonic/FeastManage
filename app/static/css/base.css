@@ -8,10 +8,17 @@ div.navbar-header > img {
 div.navbar {
     background-color: #A2D9CE;
 }
+
 a.navbar-brand {
-    color: #888;
+    color: #000 !important;
 }
 
 ul.navbar-nav > li > a {
-    color: #666;
+    color: #666 !important;
+}
+
+div.pagination {
+    margin: 0;
+    width: 100%;
+    text-align: center;
 }

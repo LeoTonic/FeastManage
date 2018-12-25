@@ -1,10 +1,24 @@
-from flask import Blueprint, flash, render_template, redirect, url_for, request
+from flask import Blueprint, flash, render_template, redirect, url_for, request, current_app
 from flask_login import login_user, logout_user, login_required
 from app import app_version
 from app.models import User
 from .forms import LoginForm
 
 accounts = Blueprint('accounts', __name__)
+
+
+@accounts.route('/', methods=['GET', 'POST'])
+@login_required
+def index():
+    page = request.args.get('page', 1, type=int)
+    pagination = User.query.paginate(
+        page, per_page=current_app.config['ITEMS_PER_PAGE'],
+        error_out=False)
+    context = dict()
+    context['users'] = pagination.items
+    context['pagination'] = pagination
+    context['app_version'] = app_version
+    return render_template('accounts/index.html', context=context)
 
 
 @accounts.route('/login', methods=['GET', 'POST'])

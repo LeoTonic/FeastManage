@@ -1,0 +1,7 @@
+<div class="container">
+<ul class="users">
+    {% for user in context['users'] %}
+    <li class="user">{{ user.name_first }}</li>
+    {% endfor %}
+</ul>
+</div>
