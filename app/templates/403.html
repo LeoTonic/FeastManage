@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block title %}404 - страница не найдена{% endblock %}
+{% block title %}403 - действие не разрешено{% endblock %}
 {% block page_content %}
 <div class="container">
-    <h1>404</h1>
-    <h2>Извините, страница не найдена!</h2>
+    <h1>403</h1>
+    <h2>Действие не разрешено!</h2>
     {% if context['error'] %}
     <p>{{ context['error'] }}</p>
     {% endif %}

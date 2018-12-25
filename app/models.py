@@ -49,6 +49,23 @@ class User(UserMixin, db.Model):
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    @property
+    def role_name(self):
+        if self.is_administrator:
+            return u'Администратор'
+        elif self.is_manager:
+            return u'Менеджер'
+        else:
+            return u'Пользователь'
+
+    @property
+    def is_administrator(self):
+        return self.role == Roles.ADMIN
+
+    @property
+    def is_manager(self):
+        return self.role == Roles.MANAGER
+
     def __repr__(self):
         return '<User: {}>'.format(self.login)
 

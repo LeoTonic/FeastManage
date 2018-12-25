@@ -3,7 +3,7 @@ from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from config import config
-from .views import page_not_found, server_error
+from .views import page_not_found, server_error, method_not_allowed
 
 app_version = '1.0.0'
 
@@ -30,6 +30,7 @@ def create_app(config_name):
     app.register_blueprint(accounts_blueprint, url_prefix='/accounts')
 
     # register error handlers
+    app.register_error_handler(403, method_not_allowed)
     app.register_error_handler(404, page_not_found)
     app.register_error_handler(500, server_error)
 

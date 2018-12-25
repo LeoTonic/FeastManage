@@ -1,3 +1,4 @@
+<!--Виджет пагинации-->
 {% macro pagination_widget(pagination, endpoint) %}
 <ul class="pagination">
     <li{% if not pagination.has_prev %} class="disabled"{% endif %}>
@@ -26,4 +27,14 @@
         </a>
     </li>
 </ul>
+{% endmacro %}
+<!--Элемент картинки для соответствующей роли-->
+{% macro role_image(user) %}
+{% if user.is_administrator %}
+<img src="{{ url_for('static', filename='img/roles/admin.png') }}"/>
+{% elif user.is_manager %}
+<img src="{{ url_for('static', filename='img/roles/manager.png') }}"/>
+{% else %}
+<img src="{{ url_for('static', filename='img/roles/user.png') }}"/>
+{% endif %}
 {% endmacro %}

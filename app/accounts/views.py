@@ -1,5 +1,5 @@
-from flask import Blueprint, flash, render_template, redirect, url_for, request, current_app
-from flask_login import login_user, logout_user, login_required
+from flask import Blueprint, flash, render_template, redirect, url_for, request, current_app, abort
+from flask_login import login_user, logout_user, login_required, current_user
 from app import app_version
 from app.models import User
 from .forms import LoginForm
@@ -10,6 +10,9 @@ accounts = Blueprint('accounts', __name__)
 @accounts.route('/', methods=['GET', 'POST'])
 @login_required
 def index():
+    if not current_user.is_administrator:
+        abort(403)
+
     page = request.args.get('page', 1, type=int)
     pagination = User.query.paginate(
         page, per_page=current_app.config['ITEMS_PER_PAGE'],

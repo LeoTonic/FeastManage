@@ -6,6 +6,13 @@
 <link rel="stylesheet" href = "{{ url_for('static', filename='css/accounts.css') }}?ver={{ context['app_version'] }}">
 {% endblock %}
 {% block page_content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-offset-10 col-sm-2">
+            <a class="btn btn-primary btn-block" href="#" role="button">Новый пользователь</a>
+        </div>
+    </div>
+</div>
 {% include 'accounts/_users.html' %}
 <div class="container">
 {% if context['pagination'] %}

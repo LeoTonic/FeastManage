@@ -31,19 +31,18 @@
     color: silver;
 }
 
-.users {
-    list-style-type: none;
-    padding: 0px;
-    margin: 16px 0px 0px 0px;
-    border-top: 1px solid #e0e0e0;
+td > img {
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
 }
 
-.user {
-    padding: 8px;
-    border-bottom: 1px solid #e0e0e0;
+tr.user {
     cursor: pointer;
 }
-.user:hover {
+
+tr.user:hover {
     background-color: #f0f0f0;
 }
 
