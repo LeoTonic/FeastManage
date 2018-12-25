@@ -3,6 +3,29 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
+class Roles:
+    # Создание исполнителей, просмотр своих исполнителей
+    # Добавление исполнителей на фестиваль
+    USER = 1
+
+    # Создание исполнителей, просмотр всех исполнителей
+    # Добавление исполнителей на фестиваль
+    # Создание фестиваля
+    # Редактирование проживания
+    # Редактирование питания
+    # Редактирование транспорта
+    MANAGER = 2
+
+    # Создание исполнителей, просмотр всех исполнителей
+    # Добавление исполнителей на фестиваль
+    # Создание фестиваля
+    # Редактирование проживания
+    # Редактирование питания
+    # Редактирование транспорта
+    # Редактирование пользователей
+    ADMIN = 3
+
+
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -13,6 +36,7 @@ class User(UserMixin, db.Model):
     name_last = db.Column(db.String(128))
     name_middle = db.Column(db.String(128))
     last_login_date = db.Column(db.DateTime, nullable=True)
+    role = db.Column(db.Integer, default=Roles.USER)
 
     @property
     def password(self):
@@ -26,7 +50,7 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
     def __repr__(self):
-        return '<User: {}'.format(self.login)
+        return '<User: {}>'.format(self.login)
 
 
 @login_manager.user_loader
