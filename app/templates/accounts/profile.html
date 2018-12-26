@@ -11,22 +11,20 @@
 {% endblock %}
 {% block page_content %}
 <div class="container">
-    <div class="col-sm-8 col-sm-offset-2">
-        {{ wtf.quick_form(context['form']) }}
-        <span class="help-block" id="role-description"></span>
-    </div>
+    {{ wtf.quick_form(context['form']) }}
+    <span class="help-block" id="role-description"></span>
     <div class="row">
-        <div class="col-sm-offset-2 col-sm-2">
-            {% if context['form'].user %}
+        <div class="col-sm-2">
+            <!--{% if context['form'].user %}-->
             <button type="button" class="btn btn-danger btn-block">Удалить</button>
-            {% endif %}
+            <!--{% endif %}-->
         </div>
-        <div class="col-sm-offset-1 col-sm-2">
+        <div class="col-sm-2">
             {% if context['form'].user %}
             <button type="button" class="btn btn-warning btn-block">Сбросить пароль</button>
             {% endif %}
         </div>
-        <div class="col-sm-offset-1 col-sm-2">
+        <div class="col-sm-2 col-sm-offset-6">
             {% if context['form'].user %}
             <button type="button" class="btn btn-primary btn-block saveuser">Сохранить</button>
             {% else %}
@@ -35,6 +33,7 @@
         </div>
     </div>
 </div>
+<div class="bottommarger"></div>
 {% endblock %}
 {% block scripts %}
 {{ super() }}

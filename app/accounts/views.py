@@ -101,6 +101,20 @@ def newuser():
     """ Регистрация нового пользователя """
     form = AdminProfileForm(None)
     if form.validate_on_submit():
+        user = User()
+        user.login = form.login.data
+        user.name_first = form.name_first.data
+        user.name_last = form.name_last.data
+        user.name_middle = form.name_middle.data
+        user.email = form.email.data
+        user.role = form.role.data
+        user.company = form.company.data
+        user.phone1 = form.phone1.data
+        user.phone2 = form.phone2.data
+        user.fax = form.fax.data
+        db.session.add(user)
+        db.session.commit()
+        flash(u'Пользователь успешно создан')
         return redirect(url_for('.index'))
     context = dict()
     context['form'] = form

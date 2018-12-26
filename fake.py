@@ -21,7 +21,7 @@ def create_superuser():
 
 def fake_users():
     counter = 0
-    for x in range(10):
+    for x in range(5):
         u = User()
         u.login = 'user{}'.format(x)
         u.name_first = 'Пользователь {}'.format(x)

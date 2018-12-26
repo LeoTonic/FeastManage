@@ -38,6 +38,10 @@
     color: silver;
 }
 
+.bottommarger {
+    margin-top: 16px;
+}
+
 td > img {
     float: left;
     width: 20px;
