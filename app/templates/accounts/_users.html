@@ -1,4 +1,5 @@
 <div class="container">
+    {% if context['users'] %}
     <table class="table">
         <thead>
             <tr>
@@ -18,4 +19,12 @@
             {% endfor %}
         </tbody>
     </table>
+    {% if context['pagination'] and context['users'] %}
+        <div class="pagination">
+            {{ macros.pagination_widget(context['pagination'], '.index') }}
+        </div>
+    {% endif %}
+    {% else %}
+    <div class="nousers">Список пользователей пуст</div>
+    {% endif %}
 </div>

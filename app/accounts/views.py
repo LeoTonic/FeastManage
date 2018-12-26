@@ -14,7 +14,7 @@ def index():
         abort(403)
 
     page = request.args.get('page', 1, type=int)
-    pagination = User.query.paginate(
+    pagination = User.query.filter(User.login != 'admin').paginate(
         page, per_page=current_app.config['ITEMS_PER_PAGE'],
         error_out=False)
     context = dict()
@@ -25,6 +25,14 @@ def index():
 
 
 @accounts.route('/login', methods=['GET', 'POST'])
+# def login():
+#     # ВРЕМЕННОЕ РЕШЕНИЕ ДЛЯ ДЕБАГА
+#     user = User.query.filter_by(login='admin').first()
+#     if user is not None:
+#         login_user(user, True)
+#         return redirect(url_for('performers.index'))
+#     else:
+#         abort(500)
 def login():
     form = LoginForm()
     if form.validate_on_submit():

@@ -20,9 +20,10 @@
                 <span class="icon-bar"></span>
             </button>
             <img src="{{ url_for('static', filename='img/appicon.png') }}?ver={{ context['app_version'] }}" alt="appicon"/>
-            <a class="navbar-brand" href="{{ url_for('performers.index') }}">FeastManage</a>
+            {% block page_name %}{% endblock %}
         </div>
         <div class="navbar-collapse collapse">
+            {% block navbar_menu %}{% endblock %}
             <ul class="nav navbar-nav navbar-right">
                 {% if current_user.is_authenticated %}
                 <li><a href="{{ url_for('accounts.logout') }}">Выход</a></li>

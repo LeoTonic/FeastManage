@@ -20,6 +20,14 @@ manager.add_command("shell", Shell(make_context=make_shell_context))
 manager.add_command("db", MigrateCommand)
 
 
+@manager.command
+def fakefill():
+    import fake
+    fake.clear_database()
+    fake.create_superuser()
+    fake.fake_users()
+
+
 if __name__ == '__main__':
     manager.run()
 

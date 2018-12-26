@@ -5,21 +5,21 @@
 {{ super() }}
 <link rel="stylesheet" href = "{{ url_for('static', filename='css/accounts.css') }}?ver={{ context['app_version'] }}">
 {% endblock %}
+{% block page_name %}
+<a class="navbar-brand" href="#">Пользователи</a>
+{% endblock %}
+{% block navbar_menu %}
+<ul class="nav navbar-nav">
+    <li><a href="{{ url_for('performers.index') }}">Исполнители</a></li>
+</ul>
+{% endblock %}
 {% block page_content %}
 <div class="container">
     <div class="row">
         <div class="col-sm-offset-10 col-sm-2">
-            <a class="btn btn-primary btn-block" href="#" role="button">Новый пользователь</a>
+            <a class="btn btn-primary btn-block" href="#" role="button">Создать</a>
         </div>
     </div>
 </div>
 {% include 'accounts/_users.html' %}
-<div class="container">
-{% if context['pagination'] %}
-    <div class="pagination">
-        {{ macros.pagination_widget(context['pagination'], '.index') }}
-    </div>
-{% endif %}
-</div>
-
 {% endblock %}
