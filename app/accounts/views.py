@@ -1,8 +1,8 @@
 from flask import Blueprint, flash, render_template, redirect, url_for, request, current_app, abort
 from flask_login import login_user, logout_user, login_required, current_user
-from app import app_version
+from app import app_version, db
 from app.models import User
-from .forms import LoginForm
+from .forms import LoginForm, PasswordForm, AdminProfileForm
 
 accounts = Blueprint('accounts', __name__)
 
@@ -38,14 +38,18 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(login=form.login.data).first()
         if user is not None:
-            if user.verify_password(form.password.data):
-                login_user(user, form.remember_me.data)
-                next_var = request.args.get('next')
-                if next_var is None or not next_var.startswith('/'):
-                    next_var = url_for('performers.index')
-                return redirect(next_var)
+            # проверка первого входа в приложение
+            if user.has_password:
+                if user.verify_password(form.password.data):
+                    login_user(user, form.remember_me.data)
+                    # next_var = request.args.get('next')
+                    # if next_var is None or not next_var.startswith('/'):
+                    #     next_var = url_for('performers.index')
+                    return redirect(url_for('performers.index'))
+                else:
+                    flash(u'Неверный пароль')
             else:
-                flash(u'Неверный пароль')
+                return redirect(url_for('.setpassword', user_id=user.id))
         else:
             flash(u'Пользователь не найден')
     context = dict()
@@ -60,3 +64,51 @@ def logout():
     flash(u'Вы вышли из системы')
     logout_user()
     return redirect(url_for('performers.index'))
+
+
+@accounts.route('/setpassword/<int:user_id>', methods=['GET', 'POST'])
+def setpassword(user_id):
+    """ Установка пароля пользователю """
+    form = PasswordForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(id=user_id).first()
+        if user is not None:
+            if user.has_password:
+                flash(u'Данному пользователю уже установлен пароль')
+            else:
+                user.password = form.password.data
+                user.has_password = True
+                db.session.add(user)
+                db.session.commit()
+                flash(u'Пароль сохранен')
+        else:
+            flash(u'Пользователь не найден')
+        return redirect(url_for('.index'))
+    context = dict()
+    context['form'] = form
+    context['app_version'] = app_version
+    return render_template('accounts/setpassword.html', context=context)
+
+
+@accounts.route('/resetpassword', methods=['POST'])
+def resetpassword():
+    """ Сброс пароля """
+    return None
+
+
+@accounts.route('/newuser', methods=['GET', 'POST'])
+def newuser():
+    """ Регистрация нового пользователя """
+    form = AdminProfileForm(None)
+    if form.validate_on_submit():
+        return redirect(url_for('.index'))
+    context = dict()
+    context['form'] = form
+    context['app_version'] = app_version
+    return render_template('accounts/profile.html', context=context)
+
+
+@accounts.route('/user/<int:user_id>', methods=['GET', 'POST'])
+def edituser(user_id):
+    """ Редактирование пользователя """
+    return None

@@ -45,3 +45,7 @@
 </div>
 {% block page_content %}{% endblock %}
 {% endblock %}
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/jquery.mask.min.js') }}?ver={{ context['app_version'] }}"></script>
+{% endblock %}

@@ -23,6 +23,13 @@
     width: 100%;
 }
 
+.loginbox-hint {
+    display: block;
+    color: #888;
+    margin-top: 16px;
+    margin-bottom: 0px;
+}
+
 .loginbox-footer {
     position: fixed;
     display: block;
@@ -44,13 +51,6 @@ tr.user {
 
 tr.user:hover {
     background-color: #f0f0f0;
-}
-
-.nousers {
-    width: 100%;
-    text-align: center;
-    color: #ccc;
-    font-size: 2em;
 }
 
 @media screen and (max-width: 512px) {

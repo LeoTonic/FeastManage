@@ -22,3 +22,10 @@ div.pagination {
     width: 100%;
     text-align: center;
 }
+
+.emptylist {
+    width: 100%;
+    text-align: center;
+    color: #ccc;
+    font-size: 2em;
+}

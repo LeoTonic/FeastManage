@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Профиль пользователя{% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href = "{{ url_for('static', filename='css/accounts.css') }}?ver={{ context['app_version'] }}">
+{% endblock %}
+{% block page_name %}
+<a class="navbar-brand" href="#">Профиль пользователя</a>
+{% endblock %}
+{% block page_content %}
+<div class="container">
+    <div class="col-sm-8 col-sm-offset-2">
+        {{ wtf.quick_form(context['form']) }}
+        <span class="help-block" id="role-description"></span>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-2">
+            {% if context['form'].user %}
+            <button type="button" class="btn btn-danger btn-block">Удалить</button>
+            {% endif %}
+        </div>
+        <div class="col-sm-offset-1 col-sm-2">
+            {% if context['form'].user %}
+            <button type="button" class="btn btn-warning btn-block">Сбросить пароль</button>
+            {% endif %}
+        </div>
+        <div class="col-sm-offset-1 col-sm-2">
+            {% if context['form'].user %}
+            <button type="button" class="btn btn-primary btn-block saveuser">Сохранить</button>
+            {% else %}
+            <button type="button" class="btn btn-primary btn-block saveuser">Создать</button>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/accounts/profile.js') }}?ver={{ context['app_version'] }}"></script>
+{% endblock %}

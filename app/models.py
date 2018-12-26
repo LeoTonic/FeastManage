@@ -7,6 +7,7 @@ class Roles:
     # Создание исполнителей, просмотр своих исполнителей
     # Добавление исполнителей на фестиваль
     USER = 1
+    USER_NAME = u'Пользователь'
 
     # Создание исполнителей, просмотр всех исполнителей
     # Добавление исполнителей на фестиваль
@@ -15,6 +16,7 @@ class Roles:
     # Редактирование питания
     # Редактирование транспорта
     MANAGER = 2
+    MANAGER_NAME = u'Менеджер'
 
     # Создание исполнителей, просмотр всех исполнителей
     # Добавление исполнителей на фестиваль
@@ -24,19 +26,38 @@ class Roles:
     # Редактирование транспорта
     # Редактирование пользователей
     ADMIN = 3
+    ADMIN_NAME = u'Администратор'
 
 
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
+    # логин для авторизации
     login = db.Column(db.String(128), unique=True, nullable=False)
+    # хэш пароля
     password_hash = db.Column(db.String(128))
+    # электронная почта
     email = db.Column(db.String(128), nullable=False)
+    # имя
     name_first = db.Column(db.String(128), nullable=False)
+    # фамилия
     name_last = db.Column(db.String(128))
+    # отчество
     name_middle = db.Column(db.String(128))
+    # дата последней авторизации
     last_login_date = db.Column(db.DateTime, nullable=True)
+    # роль пользователя в приложении
     role = db.Column(db.Integer, default=Roles.USER)
+    # пользователь установил пароль при первом входе
+    has_password = db.Column(db.Boolean, default=False)
+    # организация
+    company = db.Column(db.String(128))
+    # контактный телефон 1
+    phone1 = db.Column(db.String(10))
+    # контактный телефон 2
+    phone2 = db.Column(db.String(10))
+    # факс
+    fax = db.Column(db.String(10))
 
     @property
     def password(self):
@@ -52,11 +73,11 @@ class User(UserMixin, db.Model):
     @property
     def role_name(self):
         if self.is_administrator:
-            return u'Администратор'
+            return Roles.ADMIN_NAME
         elif self.is_manager:
-            return u'Менеджер'
+            return Roles.MANAGER_NAME
         else:
-            return u'Пользователь'
+            return Roles.USER_NAME
 
     @property
     def is_administrator(self):
