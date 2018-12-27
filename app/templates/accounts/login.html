@@ -6,16 +6,12 @@
 {{ super() }}
 <link rel="stylesheet" href = "{{ url_for('static', filename='css/accounts.css') }}?ver={{ context['app_version'] }}">
 {% endblock %}
-{% block page_name %}
-<a class="navbar-brand" href="#">Авторизация</a>
-{% endblock %}
 {% block page_content %}
 <div class="container loginbox">
-    <div class="loginbox-header"></div>
+    <div class="loginbox-header">FeastManage</div>
     <div>
         {{ wtf.quick_form(context['form']) }}
     </div>
-    <div class="loginbox-hint">При первом входе в приложение введите любой пароль</div>
 </div>
 <div class="loginbox-footer">Версия: {{ context['app_version'] }}</div>
 {% endblock %}

@@ -3,14 +3,20 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Имя</th>
-                <th>Роль</th>
+                <th class="col-sm_2">Имя Фамилия</th>
+                <th class="col-sm-2">Насел.пункт</th>
+                <th class="col-sm-3">Организация</th>
+                <th class="col-sm-3">Контакты</th>
+                <th class="col-sm-2">Роль</th>
             </tr>
         </thead>
         <tbody>
             {% for user in context['users'] %}
-            <tr class="user">
-                <td>{{ user.name_first }}</td>
+            <tr class="user edituser" id="{{ user.id }}">
+                <td>{{ user.name_first }} {% if user.name_last %}{{ user.name_last }}{% endif %}</td>
+                <td>{% if user.city %}{{ user.city }}{% endif %}</td>
+                <td>{% if user.company %}{{ user.company }}{% endif %}</td>
+                <td>{% if user.contacts %}{{ user.contacts }}{% endif %}</td>
                 <td>
                     {{ macros.role_image(user) }}
                     {{ user.role_name }}

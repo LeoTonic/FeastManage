@@ -14,20 +14,14 @@
 .loginbox-header {
     display: block;
     max-height: 80px;
-    height: 100%;
-    margin-bottom: 32px;
+    margin-bottom: 16px;
+    font-size: 30px;
+    font-weight: 500;
 }
 
 .loginbox-header > img {
     max-width: 512px;
     width: 100%;
-}
-
-.loginbox-hint {
-    display: block;
-    color: #888;
-    margin-top: 16px;
-    margin-bottom: 0px;
 }
 
 .loginbox-footer {

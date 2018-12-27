@@ -32,14 +32,13 @@ class AdminProfileForm(FlaskForm):
     """
     Форма регистрации, редактирования пользователя
     """
+    name_last = StringField(u'Фамилия', validators=[DataRequired(u'Обязательное поле'), Length(1, 128)])
     name_first = StringField(u'Имя', validators=[DataRequired(u'Обязательное поле'), Length(1, 128)])
-    name_last = StringField(u'Фамилия')
     name_middle = StringField(u'Отчество')
     email = StringField(u'Электронная почта', validators=[DataRequired(u'Обязательное поле'), Length(1, 128), Email()])
-    company = StringField(u'Организация', validators=[Length(max=128)])
-    phone1 = StringField(u'Телефон 1 (xxx) xxx-xx-xx')
-    phone2 = StringField(u'Телефон 2 (xxx) xxx-xx-xx')
-    fax = StringField(u'Факс (xxx) xxx-xx-xx')
+    company = StringField(u'Организация', validators=[Length(max=255)])
+    city = StringField(u'Населенный пункт', validators=[Length(max=255)])
+    contacts = StringField(u'Контактные телефоны', validators=[Length(max=255)])
     login = StringField(u'Логин', validators=[
         DataRequired(u'Обязательное поле'),
         Length(1, 128),
@@ -47,21 +46,17 @@ class AdminProfileForm(FlaskForm):
                message=u'Логин может содержать только латинские буквы в любом регистре, цифры и знаки - . _')])
     role = SelectField(u'Роль', coerce=int)
 
-    def __init__(self, user, *args, **kwargs):
+    def __init__(self, edit, *args, **kwargs):
         super(AdminProfileForm, self).__init__(*args, **kwargs)
         self.role.choices = [
             (Roles.USER, Roles.USER_NAME),
             (Roles.MANAGER, Roles.MANAGER_NAME),
             (Roles.ADMIN, Roles.ADMIN_NAME)
         ]
-        self.user = user
+        self.edit = edit
 
     def validate_login(self, field):
-        if self.user is not None:
+        if not self.edit:
             # Проверяем логин в форме редактирования
-            if field.data != self.user.login and User.query.filter_by(login=field.data).first():
-                raise ValidationError(u'Логин пользователя уже занят')
-        else:
-            # Проверяем логин в форме создания пользователя
             if User.query.filter_by(login=field.data).first():
                 raise ValidationError(u'Логин пользователя уже занят')

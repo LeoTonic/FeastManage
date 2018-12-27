@@ -41,7 +41,7 @@ class User(UserMixin, db.Model):
     # имя
     name_first = db.Column(db.String(128), nullable=False)
     # фамилия
-    name_last = db.Column(db.String(128))
+    name_last = db.Column(db.String(128), nullable=False)
     # отчество
     name_middle = db.Column(db.String(128))
     # дата последней авторизации
@@ -51,13 +51,11 @@ class User(UserMixin, db.Model):
     # пользователь установил пароль при первом входе
     has_password = db.Column(db.Boolean, default=False)
     # организация
-    company = db.Column(db.String(128))
-    # контактный телефон 1
-    phone1 = db.Column(db.String(10))
-    # контактный телефон 2
-    phone2 = db.Column(db.String(10))
-    # факс
-    fax = db.Column(db.String(10))
+    company = db.Column(db.String(255))
+    # населенный пункт
+    city = db.Column(db.String(255))
+    # контактные телефоны
+    contacts = db.Column(db.String(255))
 
     @property
     def password(self):

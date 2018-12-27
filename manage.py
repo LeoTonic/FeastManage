@@ -28,6 +28,12 @@ def fakefill():
     fake.fake_users()
 
 
+@manager.command
+def cleardb():
+    import fake
+    fake.clear_database()
+
+
 if __name__ == '__main__':
     manager.run()
 
