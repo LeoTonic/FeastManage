@@ -8,7 +8,7 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     BOOTSTRAP_SERVE_LOCAL = True
     TEMPLATES_AUTO_RELOAD = True
-    ITEMS_PER_PAGE = 10
+    ITEMS_PER_PAGE = 20
 
     @staticmethod
     def init_app(app):

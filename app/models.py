@@ -85,6 +85,10 @@ class User(UserMixin, db.Model):
     def is_manager(self):
         return self.role == Roles.MANAGER
 
+    @property
+    def is_user(self):
+        return self.role == Roles.USER
+
     def __repr__(self):
         return '<User: {}>'.format(self.login)
 

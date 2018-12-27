@@ -6,7 +6,7 @@ from flask_jsglue import JSGlue
 from config import config
 from .views import page_not_found, server_error, method_not_allowed
 
-app_version = '0.1.0'
+app_version = '0.1.1'
 
 bootstrap = Bootstrap()
 db = SQLAlchemy(session_options={'autoflush': False})
@@ -28,6 +28,9 @@ def create_app(config_name):
 
     from .performers.views import performers as performers_blueprint
     app.register_blueprint(performers_blueprint)
+
+    from .feast.views import feast as feast_blueprint
+    app.register_blueprint(feast_blueprint, url_prefix='/feast')
 
     from .accounts.views import accounts as accounts_blueprint
     app.register_blueprint(accounts_blueprint, url_prefix='/accounts')

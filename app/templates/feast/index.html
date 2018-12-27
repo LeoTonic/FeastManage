@@ -1,10 +1,10 @@
 {% extends "base.html" %}
-{% block title %}Исполнители{% endblock %}
+{% block title %}Фестиваль{% endblock %}
 {% block navbar_menu %}
 <ul class="nav navbar-nav">
-    <li class="active"><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Исполнители</a></li>
+    <li><a href="{{ url_for('performers.index') }}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Исполнители</a></li>
     {% if current_user.is_user == False %}
-    <li><a href="{{ url_for('feast.index') }}"><span class="glyphicon glyphicon-music" aria-hidden="true"></span> Фестиваль</a></li>
+    <li class="active"><a href="#"><span class="glyphicon glyphicon-music" aria-hidden="true"></span> Фестиваль</a></li>
     <li><a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Проживание</a></li>
     <li><a href="#"><span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span> Питание</a></li>
     <li><a href="#"><span class="glyphicon glyphicon-plane" aria-hidden="true"></span> Доставка</a></li>

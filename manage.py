@@ -32,6 +32,7 @@ def fakefill():
 def cleardb():
     import fake
     fake.clear_database()
+    fake.create_superuser()
 
 
 if __name__ == '__main__':
