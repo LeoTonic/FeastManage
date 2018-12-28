@@ -22,7 +22,7 @@ def create_superuser():
 
 def fake_users():
     counter = 0
-    for x in range(5):
+    for x in range(15):
         u = User()
         u.login = 'user{}'.format(x)
         u.name_first = 'Имя {}'.format(x)
@@ -34,5 +34,18 @@ def fake_users():
         u.role = Roles.USER
         db.session.add(u)
         counter += 1
+    for x in range(15):
+        u = User()
+        u.login = 'manager{}'.format(x)
+        u.name_first = 'МанИмя {}'.format(x)
+        u.name_last = 'МанФам {}'.format(x)
+        u.email = 'manager{}@gmail.com'.format(x)
+        u.city = 'МанГород {}'.format(x)
+        u.company = 'МанКомпания {}'.format(x)
+        u.contacts = '(456) 123-12-12'
+        u.role = Roles.MANAGER
+        db.session.add(u)
+        counter += 1
+
     db.session.commit()
     print('fake users added successfully: {}'.format(counter))

@@ -31,3 +31,5 @@ div.pagination {
     font-size: 2em;
     margin-top: 32px;
 }
+
+.hidden { display: none; }

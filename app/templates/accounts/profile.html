@@ -19,19 +19,27 @@
     <div class="row">
         <div class="col-sm-2">
             {% if context['form'].edit %}
-            <button type="button" class="btn btn-danger btn-block" id="deleteuser">Удалить</button>
+            <button type="button" class="btn btn-danger btn-block" id="deleteuser">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Удалить
+            </button>
             {% endif %}
         </div>
         <div class="col-sm-2">
             {% if context['form'].edit %}
-            <button type="button" class="btn btn-warning btn-block" id="resetpassword">Сбросить пароль</button>
+            <button type="button" class="btn btn-warning btn-block" id="resetpassword">
+                <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Сбросить пароль
+            </button>
             {% endif %}
         </div>
         <div class="col-sm-2 col-sm-offset-6">
             {% if context['form'].edit %}
-            <button type="button" class="btn btn-primary btn-block" id="saveuser">Сохранить</button>
+            <button type="button" class="btn btn-primary btn-block" id="saveuser">
+                <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Сохранить
+            </button>
             {% else %}
-            <button type="button" class="btn btn-primary btn-block" id="newuser">Создать</button>
+            <button type="button" class="btn btn-primary btn-block" id="newuser">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Создать
+            </button>
             {% endif %}
         </div>
     </div>

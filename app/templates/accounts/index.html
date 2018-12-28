@@ -27,13 +27,22 @@
 {% endblock %}
 {% block page_content %}
 <div class="container">
+    <h3>Пользователи приложения</h3>
     <div class="row">
-        <div class="col-sm-4">
-            <a class="btn btn-primary btn-block" href="{{ url_for('accounts.newuser') }}" role="button">Создать пользователя</a>
+        <div class="col-sm-2">
+            <button type="button" class="btn btn-danger btn-block" style="display: none;" id="deleteusers">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Удалить
+            </button>
+        </div>
+        <div class="col-sm-2 col-sm-offset-8">
+            <a class="btn btn-primary btn-block" href="{{ url_for('accounts.newuser') }}" role="button">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Создать
+            </a>
         </div>
     </div>
 </div>
 {% include 'accounts/_users.html' %}
+<form id="form_deleteusers" action="{{ url_for('accounts.deleteusers') }}" method="post"></form>
 {% endblock %}
 {% block scripts %}
 {{ super() }}

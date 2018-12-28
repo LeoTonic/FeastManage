@@ -166,3 +166,16 @@ def deleteuser():
     db.session.commit()
     flash(u'Пользователь успешно удален')
     return redirect(url_for('.index'))
+
+
+@accounts.route('/deleteusers', methods=['POST'])
+@login_required
+@admin_required
+def deleteusers():
+    """ Удаление списка пользователей из базы """
+    users = request.form.getlist('users[]')
+    users = list(map(int, users))
+    db.session.query(User).filter(User.id.in_(users)).delete(synchronize_session=False)
+    db.session.commit()
+    flash(u'Выбранные пользователи успешно удалены')
+    return redirect(url_for('.index'))

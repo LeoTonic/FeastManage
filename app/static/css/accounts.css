@@ -51,6 +51,50 @@ tr.user:hover {
     background-color: #f0f0f0;
 }
 
+.toolrelative {
+    position: relative;
+}
+
+.usertool {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    left: -16px;
+    top: calc(50% - 16px);
+    padding: 4px;
+    text-align: center;
+}
+.usertool:hover {
+    box-shadow: 0 0 10px rgba(0,0,0,0.75);
+}
+
+.usertool-icon {
+    vertical-align: middle;
+    color: #666 !important;
+}
+
+
+.lockedtool {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: 0px;
+    top: calc(50% - 10px);
+}
+
+tr.user--selected {
+    background-color: #428bca;
+    color: #eee;
+}
+
+tr.user--selected:hover {
+    background-color: #327bba;
+    color: #fff;
+}
+
 @media screen and (max-width: 512px) {
     .loginbox {
         width: 100%;
