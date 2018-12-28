@@ -39,7 +39,7 @@ $(document).on('ready', function() {
         },
         function(){
             var id = $(this).attr('id');
-            $('#edit'.concat(id)).hide(250);
+            $('#edit'.concat(id)).hide(50);
         }
     );
 

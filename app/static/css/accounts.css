@@ -62,7 +62,7 @@ tr.user:hover {
     background-color: white;
     border-radius: 50%;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    left: -16px;
+    right: -16px;
     top: calc(50% - 16px);
     padding: 4px;
     text-align: center;
@@ -76,13 +76,9 @@ tr.user:hover {
     color: #666 !important;
 }
 
-
 .lockedtool {
-    position: absolute;
     width: 20px;
     height: 20px;
-    right: 0px;
-    top: calc(50% - 10px);
 }
 
 tr.user--selected {

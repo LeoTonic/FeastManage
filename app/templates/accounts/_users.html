@@ -6,28 +6,31 @@
                 <th class="col-sm_2">Имя Фамилия</th>
                 <th class="col-sm-2">Насел.пункт</th>
                 <th class="col-sm-3">Организация</th>
-                <th class="col-sm-3">Контакты</th>
+                <th class="col-sm-2">Контакты</th>
                 <th class="col-sm-2">Роль</th>
+                <th class="col-sm-1">Дополн.</th>
             </tr>
         </thead>
         <tbody>
             {% for user in context['users'] %}
             <tr class="user edituser" id="{{ user.id }}">
-                <td class="toolrelative">
+                <td>
                     {{ user.name_first }} {% if user.name_last %}{{ user.name_last }}{% endif %}
-                    <div class="usertool" id="edit{{ user.id }}" style="display: none">
-                        <span class="glyphicon glyphicon-pencil usertool-icon" aria-hidden="true"></span>
-                    </div>
                 </td>
                 <td>{% if user.city %}{{ user.city }}{% endif %}</td>
                 <td>{% if user.company %}{{ user.company }}{% endif %}</td>
                 <td>{% if user.contacts %}{{ user.contacts }}{% endif %}</td>
-                <td class="toolrelative">
+                <td>
                     {{ macros.role_image(user) }}
                     {{ user.role_name }}
+                </td>
+                <td class="toolrelative">
                     {% if user.has_password %}
                     <img class="lockedtool" src="{{ url_for('static', filename='img/locked.png') }}"/>
                     {% endif %}
+                    <div class="usertool" id="edit{{ user.id }}" style="display: none">
+                        <span class="glyphicon glyphicon-pencil usertool-icon" aria-hidden="true"></span>
+                    </div>
                 </td>
             </tr>
             {% endfor %}
