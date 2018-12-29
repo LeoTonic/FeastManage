@@ -64,7 +64,7 @@ tr.user:hover {
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     right: -16px;
     top: calc(50% - 16px);
-    padding: 4px;
+    padding: 3px;
     text-align: center;
 }
 .usertool:hover {
@@ -72,7 +72,7 @@ tr.user:hover {
 }
 
 .usertool-icon {
-    vertical-align: middle;
+    line-height: 24px;
     color: #666 !important;
 }
 

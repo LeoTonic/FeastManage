@@ -6,9 +6,9 @@
                 <th class="col-sm_2">Имя Фамилия</th>
                 <th class="col-sm-2">Насел.пункт</th>
                 <th class="col-sm-3">Организация</th>
-                <th class="col-sm-2">Контакты</th>
-                <th class="col-sm-2">Роль</th>
-                <th class="col-sm-1">Дополн.</th>
+                <th class="col-sm-2 hidden-xs">Контакты</th>
+                <th class="col-sm-2 hidden-md hidden-sm hidden-xs">Роль</th>
+                <th class="col-sm-1 hidden-md hidden-sm hidden-xs">Дополн.</th>
             </tr>
         </thead>
         <tbody>
@@ -19,14 +19,14 @@
                 </td>
                 <td>{% if user.city %}{{ user.city }}{% endif %}</td>
                 <td>{% if user.company %}{{ user.company }}{% endif %}</td>
-                <td>{% if user.contacts %}{{ user.contacts }}{% endif %}</td>
-                <td>
+                <td class="hidden-xs">{% if user.contacts %}{{ user.contacts }}{% endif %}</td>
+                <td class="hidden-md hidden-sm hidden-xs">
                     {{ macros.role_image(user) }}
                     {{ user.role_name }}
                 </td>
-                <td class="toolrelative">
+                <td class="toolrelative hidden-md hidden-sm hidden-xs">
                     {% if user.has_password %}
-                    <img class="lockedtool" src="{{ url_for('static', filename='img/locked.png') }}"/>
+                    <img class="lockedtool" src="{{ url_for('static', filename='img/locked.png') }}" title="Защищен паролем"/>
                     {% endif %}
                     <div class="usertool" id="edit{{ user.id }}" style="display: none">
                         <span class="glyphicon glyphicon-pencil usertool-icon" aria-hidden="true"></span>
