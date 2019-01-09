@@ -2,9 +2,7 @@
 {% macro pagination_widget(pagination, endpoint) %}
 <ul class="pagination">
     <li{% if not pagination.has_prev %} class="disabled"{% endif %}>
-        <a href="{% if pagination.has_prev %}{{ url_for(endpoint, page=pagination.prev_num, **kwargs) }}{% else %}#{% endif %}">
-            &laquo;
-        </a>
+        <a href="{% if pagination.has_prev %}{{ url_for(endpoint, page=pagination.prev_num, **kwargs) }}{% else %}#{% endif %}">&laquo;</a>
     </li>
     {% for p in pagination.iter_pages() %}
         {% if p %}
@@ -22,9 +20,7 @@
         {% endif %}
     {% endfor %}
     <li{% if not pagination.has_next %} class="disabled"{% endif %}>
-        <a href="{% if pagination.has_next %}{{ url_for(endpoint, page=pagination.next_num, **kwargs) }}{% else %}#{% endif %}">
-            &raquo;
-        </a>
+        <a href="{% if pagination.has_next %}{{ url_for(endpoint, page=pagination.next_num, **kwargs) }}{% else %}#{% endif %}">&raquo;</a>
     </li>
 </ul>
 {% endmacro %}
@@ -63,10 +59,7 @@
         <ul class="dropdown-menu">
             <li><a href="{{ url_for('accounts.index') }}">Пользователи</a></li>
             <li role="separator" class="divider"></li>
-            <li class="dropdown-header">Классификаторы</li>
-            <li><a href="{{ url_for('categories.gengroups') }}">Групповой жанр</a></li>
-            <li><a href="{{ url_for('categories.gentres') }}">Жанр</a></li>
-            <li><a href="#">Возраст</a></li>
+            <li><a href="{{ url_for('categories.index') }}">Категории</a></li>
         </ul>
     </li>
     {% endif %}

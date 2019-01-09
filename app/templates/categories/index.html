@@ -10,46 +10,23 @@
 {% endblock %}
 {% block page_content %}
 <div class="container-fluid">
-    <h3>{{ context['title'] }}</h3>
-    {% if context['rootitems'] %}
-    <div class="row">
-        <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{ context['rootselected'].title }} <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                {% for item in context['rootitems'] %}
-                {% if item.id == context['rootselected'].id %}
-                <li class="active">
-                {% else %}
-                <li>
-                {% endif %}
-                <a href="#">{{ item.title }}</a>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
-    {% endif %}
-    {% if context['mode_gentres'] and not context['rootitems'] %}
-    <div class="emptylist">Необходимо добавить групповой жанр</div>
-    {% else %}
+    <h3>Категории исполнителей</h3>
     <div class="row">
         <div class="col-sm-2">
-            <button type="button" class="btn btn-danger btn-block" style="display: none;" id="deleteitems">
+            <button type="button" class="btn btn-danger btn-block" style="display: none;" id="deleteItems">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Удалить
             </button>
         </div>
         <div class="col-sm-2 col-sm-offset-8">
-            <button type="button" class="btn btn-primary btn-block" id="additem">
+            <button type="button" class="btn btn-primary btn-block" id="addItem">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Добавить
             </button>
         </div>
     </div>
     <div class="empty-box-16"></div>
-    {% if context['listitems'] %}
+    {% if context['items'] %}
     <div class="list-group">
-        {% for item in context['listitems'] %}
+        {% for item in context['items'] %}
         <a href="#" class="list-group-item">{{ item.title }}</a>
         {% endfor %}
     </div>
@@ -58,18 +35,10 @@
     {% endif %}
     <div class="empty-box-16"></div>
 </div>
-{% endif %}
 {% include '_modalInputText.html' %}
-{% if context['mode_gengroups'] %}
-<form id="formInputText" action="{{ url_for('categories.gengroups') }}" method="post">
-{% elif context['mode_gentres'] %}
-<form id="formInputText" action="{{ url_for('categories.gentres') }}" method="post">
-{% endif %}
-    <input type="hidden" name="id" id="formInputId"/>
-    {% if context['rootselected'] %}
-    <input type="hidden" name="group_id" value="{{ context['rootselected'].id }}"/>
-    {% endif %}
-    <input type="hidden" name="title" id="formInputTitle"/>
+<form id="formEditText" action="{{ url_for('categories.index') }}" method="post">
+    <input type="hidden" name="id" id="formEditTextId"/>
+    <input type="hidden" name="title" id="formEditTextTitle"/>
 </form>
 {% endblock %}
 {% block scripts %}

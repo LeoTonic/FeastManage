@@ -93,17 +93,17 @@ class User(UserMixin, db.Model):
         return '<User: {}>'.format(self.login)
 
 
-class GentreGroup(db.Model):
-    """Групповой жанр"""
-    __tablename__ = 'gentregroups'
+class Category(db.Model):
+    """Категория исполнителя"""
+    __tablename__ = 'categories'
     id = db.Column(db.Integer, primary_key=True)
     # наименование
     title = db.Column(db.String(255), nullable=False)
-    # дочерние жанры
-    gentres = db.relationship('Gentre', backref='group', lazy='joined')
+    # жанры
+    gentres = db.relationship('Gentre', backref='category', lazy='joined')
 
     def __repr__(self):
-        return '<GenGroup: {}>'.format(self.title)
+        return '<Category: {}>'.format(self.title)
 
 
 class Gentre(db.Model):
@@ -112,8 +112,8 @@ class Gentre(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     # наименование
     title = db.Column(db.String(255), nullable=False)
-    # групповой жанр
-    group_id = db.Column(db.Integer, db.ForeignKey('gentregroups.id'))
+    # категория
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
 
     def __repr__(self):
         return '<Gentre: {}>'.format(self.title)
