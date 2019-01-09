@@ -17,25 +17,20 @@ $(document).on('ready', function() {
         }
     });
 
-    $('.usertool').on('click', function() {
+    $('.usertool').on('click', function(e) {
+        e.stopPropagation();
         var id = $(this).attr('id').substr(4);
         location.href = Flask.url_for('accounts.edituser', { "user_id": id });
     });
 
     $('#deleteusers').on('click', function() {
-        if (confirm('Уверены, что хотите удалить выбранных пользователей?')) {
-            var suForm = $('#form_deleteusers');
-            $.each(selectedUsers, function(index, value) {
-                $("<input type='hidden'/>").attr('name', 'users[]').val(value).appendTo(suForm);
-            });
-            $('#form_deleteusers').submit();
-        }
+        confirmDialog('Удаление', 'Уверены, что хотите удалить выбранных пользователей?', deleteUsers);
     });
 
     $('.edituser').hover(
         function(){
             var id = $(this).attr('id');
-            $('#edit'.concat(id)).show(250);
+            $('#edit'.concat(id)).show(50);
         },
         function(){
             var id = $(this).attr('id');
@@ -51,5 +46,14 @@ $(document).on('ready', function() {
         }
         selectedUsers.splice(itemIndex, 1);
         return false;
+    }
+
+    function deleteUsers() {
+        // Добавление списка удаляемых пользователей в форму и отправка пост-запроса
+        var suForm = $('#form_deleteusers');
+        $.each(selectedUsers, function(index, value) {
+            $("<input type='hidden'/>").attr('name', 'users[]').val(value).appendTo(suForm);
+        });
+        $('#form_deleteusers').submit();
     }
 });

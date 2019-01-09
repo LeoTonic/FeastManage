@@ -6,27 +6,10 @@
 <link rel="stylesheet" href = "{{ url_for('static', filename='css/accounts.css') }}?ver={{ context['app_version'] }}">
 {% endblock %}
 {% block navbar_menu %}
-<ul class="nav navbar-nav">
-    <li><a href="{{ url_for('performers.index') }}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Исполнители</a></li>
-    <li><a href="{{ url_for('feast.index') }}"><span class="glyphicon glyphicon-music" aria-hidden="true"></span> Фестиваль</a></li>
-    <li><a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Проживание</a></li>
-    <li><a href="#"><span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span> Питание</a></li>
-    <li><a href="#"><span class="glyphicon glyphicon-plane" aria-hidden="true"></span> Доставка</a></li>
-    <li class="active dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Настройки <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu">
-            <li><a href="#">Пользователи</a></li>
-            <li><a href="#">Гостиницы</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="{{ url_for('categories.gengroups') }}">Классификаторы</a></li>
-        </ul>
-    </li>
-</ul>
+{{ macros.application_menu(0, current_user) }}
 {% endblock %}
 {% block page_content %}
-<div class="container">
+<div class="container-fluid">
     <h3>Пользователи приложения</h3>
     <div class="row">
         <div class="col-sm-2">
@@ -41,7 +24,9 @@
         </div>
     </div>
 </div>
+<div class="empty-box-16"></div>
 {% include 'accounts/_users.html' %}
+{% include '_modalOkCancel.html' %}
 <form id="form_deleteusers" action="{{ url_for('accounts.deleteusers') }}" method="post"></form>
 {% endblock %}
 {% block scripts %}

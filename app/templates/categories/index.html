@@ -1,21 +1,15 @@
 {% extends "base.html" %}
+{% import "_macros.html" as macros %}
 {% block title %}{{ context['title'] }}{% endblock %}
 {% block head %}
 {{ super() }}
 <link rel="stylesheet" href = "{{ url_for('static', filename='css/categories.css') }}?ver={{ context['app_version'] }}">
 {% endblock %}
 {% block navbar_menu %}
-<ul class="nav navbar-nav">
-    {% if context['mode_gengroups'] %}<li class="active">{% else %}<li>{% endif %}
-    <a href="{{ url_for('categories.gengroups') }}">Групповой Жанр</a></li>
-    {% if context['mode_gentres'] %}<li class="active">{% else %}<li>{% endif %}
-    <a href="{{ url_for('categories.gentres') }}">Жанр</a></li>
-    {% if context['mode_ages'] %}<li class="active">{% else %}<li>{% endif %}
-    <a href="#">Возраст</a></li>
-</ul>
+{{ macros.application_menu(0, current_user) }}
 {% endblock %}
 {% block page_content %}
-<div class="container">
+<div class="container-fluid">
     <h3>{{ context['title'] }}</h3>
     {% if context['rootitems'] %}
     <div class="row">
@@ -38,31 +32,45 @@
     </div>
     {% endif %}
     {% if context['mode_gentres'] and not context['rootitems'] %}
-        <div class="emptylist">Необходимо добавить групповой жанр</div>
+    <div class="emptylist">Необходимо добавить групповой жанр</div>
     {% else %}
-        <div class="row">
-            <div class="col-sm-2">
-                <button type="button" class="btn btn-danger btn-block" style="display: none;" id="deleteitems">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Удалить
-                </button>
-            </div>
-            <div class="col-sm-2 col-sm-offset-8">
-                <button type="button" class="btn btn-primary btn-block" id="additem">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Добавить
-                </button>
-            </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <button type="button" class="btn btn-danger btn-block" style="display: none;" id="deleteitems">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Удалить
+            </button>
         </div>
-        {% if context['listitems'] %}
-        <div class="list-group">
-            {% for item in context['listitems'] %}
-            <button type="button" class="list-group-item">{{ item.title }}</button>
-            {% endfor %}
+        <div class="col-sm-2 col-sm-offset-8">
+            <button type="button" class="btn btn-primary btn-block" id="additem">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Добавить
+            </button>
         </div>
-        {% else %}
-        <div class="emptylist">Список пуст</div>
-        {% endif %}
+    </div>
+    <div class="empty-box-16"></div>
+    {% if context['listitems'] %}
+    <div class="list-group">
+        {% for item in context['listitems'] %}
+        <a href="#" class="list-group-item">{{ item.title }}</a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="emptylist">Список пуст</div>
     {% endif %}
+    <div class="empty-box-16"></div>
 </div>
+{% endif %}
+{% include '_modalInputText.html' %}
+{% if context['mode_gengroups'] %}
+<form id="formInputText" action="{{ url_for('categories.gengroups') }}" method="post">
+{% elif context['mode_gentres'] %}
+<form id="formInputText" action="{{ url_for('categories.gentres') }}" method="post">
+{% endif %}
+    <input type="hidden" name="id" id="formInputId"/>
+    {% if context['rootselected'] %}
+    <input type="hidden" name="group_id" value="{{ context['rootselected'].id }}"/>
+    {% endif %}
+    <input type="hidden" name="title" id="formInputTitle"/>
+</form>
 {% endblock %}
 {% block scripts %}
 {{ super() }}

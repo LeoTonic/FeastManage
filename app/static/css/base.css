@@ -32,6 +32,10 @@ div.pagination {
     margin-top: 32px;
 }
 
+.empty-box-16 {
+    height: 16px;
+}
+
 .hidden { display: none; }
 
 table {

@@ -38,3 +38,37 @@
 <img src="{{ url_for('static', filename='img/roles/user.png') }}"/>
 {% endif %}
 {% endmacro %}
+<!--Меню приложения-->
+{% macro application_menu(active_id, user) %}
+<ul class="nav navbar-nav">
+    {% if active_id == 1 %}<li class="active">{% else %}<li>{% endif %}
+    <a href="{{ url_for('performers.index') }}">
+        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Исполнители</a>
+    </a>
+    </li>
+    {% if not user.is_user %}
+    {% if active_id == 2 %}<li class="active">{% else %}<li>{% endif %}
+    <a href="{{ url_for('feast.index') }}">
+        <span class="glyphicon glyphicon-music" aria-hidden="true"></span> Фестиваль</a>
+    </li>
+    <li><a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Проживание</a></li>
+    <li><a href="#"><span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span> Питание</a></li>
+    <li><a href="#"><span class="glyphicon glyphicon-plane" aria-hidden="true"></span> Доставка</a></li>
+    {% endif %}
+    {% if user.is_administrator %}
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Настройки <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="{{ url_for('accounts.index') }}">Пользователи</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="dropdown-header">Классификаторы</li>
+            <li><a href="{{ url_for('categories.gengroups') }}">Групповой жанр</a></li>
+            <li><a href="{{ url_for('categories.gentres') }}">Жанр</a></li>
+            <li><a href="#">Возраст</a></li>
+        </ul>
+    </li>
+    {% endif %}
+</ul>
+{% endmacro %}

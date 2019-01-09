@@ -32,10 +32,6 @@
     color: silver;
 }
 
-.bottommarger {
-    margin-top: 16px;
-}
-
 td > img {
     float: left;
     width: 20px;
@@ -62,7 +58,7 @@ tr.user:hover {
     background-color: white;
     border-radius: 50%;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    right: -16px;
+    right: 0px;
     top: calc(50% - 16px);
     padding: 3px;
     text-align: center;

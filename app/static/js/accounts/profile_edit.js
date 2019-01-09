@@ -6,11 +6,11 @@ $(document).on('ready', function() {
     $('#saveuser').on('click', function() { $('.form').submit(); });
 
     $('#deleteuser').on('click', function() {
-        if (confirm('Уверены, что хотите удалить пользователя?')) $('#form_deleteuser').submit();
+        confirmDialog('Удаление', 'Уверены, что хотите удалить пользователя?', deleteUser);
     });
 
     $('#resetpassword').on('click', function() {
-        if (confirm('Уверены, что хотите сбросить пароль пользователя?')) $('#form_resetpassword').submit();
+        confirmDialog('Сброс пароля', 'Уверены, что хотите сбросить пароль пользователя?', resetPassword);
     });
 
     function setRoleDescription(roleitem) {
@@ -21,5 +21,12 @@ $(document).on('ready', function() {
             "1": "Редактирование только своих исполнителей, регистрация участников фестиваля",
         };
         $('#role-description').html(roles[roleitem.val()]);
+    }
+
+    function deleteUser() {
+        $('#form_deleteuser').submit();
+    }
+    function resetPassword() {
+        $('#form_resetpassword').submit();
     }
 });

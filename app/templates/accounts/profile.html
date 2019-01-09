@@ -12,7 +12,7 @@
 </ul>
 {% endblock %}
 {% block page_content %}
-<div class="container">
+<div class="container-fluid">
     {{ wtf.quick_form(context['form']) }}
     <span class="label label-info">Описание роли</span>
     <span class="help-block" id="role-description"></span>
@@ -44,7 +44,8 @@
         </div>
     </div>
 </div>
-<div class="bottommarger"></div>
+<div class="empty-box-16"></div>
+{% include '_modalOkCancel.html' %}
 {% if context['form'].edit %}
 <form id="form_deleteuser" action="{{ url_for('accounts.deleteuser') }}" method="post">
     <input type="hidden" name="login" value="{{ context['form'].login.data }}"/>

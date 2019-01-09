@@ -12,7 +12,7 @@
 
 {% block navbar %}
 <nav class="navbar navbar-default" role="navigation">
-    <div class="container">
+    <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
@@ -37,7 +37,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container-fluid">
     {% for message in get_flashed_messages() %}
     <div class="alert alert-warning">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -49,5 +49,5 @@
 {% endblock %}
 {% block scripts %}
 {{ super() }}
-<script src="{{ url_for('static', filename='js/jquery.mask.min.js') }}?ver={{ context['app_version'] }}"></script>
+<script src="{{ url_for('static', filename='js/base.js') }}?ver={{ context['app_version'] }}"></script>
 {% endblock %}

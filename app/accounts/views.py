@@ -162,7 +162,7 @@ def edituser(user_id):
 @admin_required
 def deleteuser():
     """ Удаление пользователя из базы"""
-    User.query.filter_by(login=request.form['login']).delete()
+    User.query.filter_by(login=request.form.get('login')).delete()
     db.session.commit()
     flash(u'Пользователь успешно удален')
     return redirect(url_for('.index'))
