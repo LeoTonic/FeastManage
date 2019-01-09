@@ -35,6 +35,9 @@ def create_app(config_name):
     from .accounts.views import accounts as accounts_blueprint
     app.register_blueprint(accounts_blueprint, url_prefix='/accounts')
 
+    from .categories.views import categories as categories_blueprint
+    app.register_blueprint(categories_blueprint, url_prefix='/categories')
+
     # register error handlers
     app.register_error_handler(403, method_not_allowed)
     app.register_error_handler(404, page_not_found)

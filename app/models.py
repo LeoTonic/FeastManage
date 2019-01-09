@@ -93,6 +93,32 @@ class User(UserMixin, db.Model):
         return '<User: {}>'.format(self.login)
 
 
+class GentreGroup(db.Model):
+    """Групповой жанр"""
+    __tablename__ = 'gentregroups'
+    id = db.Column(db.Integer, primary_key=True)
+    # наименование
+    title = db.Column(db.String(255), nullable=False)
+    # дочерние жанры
+    gentres = db.relationship('Gentre', backref='group', lazy='joined')
+
+    def __repr__(self):
+        return '<GenGroup: {}>'.format(self.title)
+
+
+class Gentre(db.Model):
+    """Жанр исполнителя"""
+    __tablename__ = 'gentres'
+    id = db.Column(db.Integer, primary_key=True)
+    # наименование
+    title = db.Column(db.String(255), nullable=False)
+    # групповой жанр
+    group_id = db.Column(db.Integer, db.ForeignKey('gentregroups.id'))
+
+    def __repr__(self):
+        return '<Gentre: {}>'.format(self.title)
+
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
