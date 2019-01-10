@@ -100,23 +100,84 @@ class Category(db.Model):
     # наименование
     title = db.Column(db.String(255), nullable=False)
     # жанры
-    gentres = db.relationship('Gentre', backref='category', lazy='joined')
+    gentres = db.relationship('Gentre',
+                              cascade="all, delete-orphan",
+                              backref='category',
+                              lazy='joined',
+                              passive_deletes=True)
+    # возрастные группы
+    ages = db.relationship('Age',
+                           cascade="all, delete-orphan",
+                           backref='category',
+                           lazy='joined',
+                           passive_deletes=True)
+    # направления
+    directions = db.relationship('Direction',
+                                 cascade="all, delete-orphan",
+                                 backref='category',
+                                 lazy='joined',
+                                 passive_deletes=True)
+    # составы
+    compositions = db.relationship('Composition',
+                                   cascade="all, delete-orphan",
+                                   backref='category',
+                                   lazy='joined',
+                                   passive_deletes=True)
 
     def __repr__(self):
         return '<Category: {}>'.format(self.title)
 
 
 class Gentre(db.Model):
-    """Жанр исполнителя"""
+    """Жанровая подкатегория"""
     __tablename__ = 'gentres'
     id = db.Column(db.Integer, primary_key=True)
     # наименование
     title = db.Column(db.String(255), nullable=False)
     # категория
-    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id', ondelete='CASCADE'))
 
     def __repr__(self):
         return '<Gentre: {}>'.format(self.title)
+
+
+class Age(db.Model):
+    """Возрастная подкатегория"""
+    __tablename__ = 'ages'
+    id = db.Column(db.Integer, primary_key=True)
+    # наименование
+    title = db.Column(db.String(255), nullable=False)
+    # категория
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id', ondelete='CASCADE'))
+
+    def __repr__(self):
+        return '<Age: {}>'.format(self.title)
+
+
+class Direction(db.Model):
+    """Подкатегория Направление"""
+    __tablename__ = 'directions'
+    id = db.Column(db.Integer, primary_key=True)
+    # наименование
+    title = db.Column(db.String(255), nullable=False)
+    # категория
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id', ondelete='CASCADE'))
+
+    def __repr__(self):
+        return '<Direction: {}>'.format(self.title)
+
+
+class Composition(db.Model):
+    """Подкатегория Состав"""
+    __tablename__ = 'compositions'
+    id = db.Column(db.Integer, primary_key=True)
+    # наименование
+    title = db.Column(db.String(255), nullable=False)
+    # категория
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id', ondelete='CASCADE'))
+
+    def __repr__(self):
+        return '<Composition: {}>'.format(self.title)
 
 
 @login_manager.user_loader

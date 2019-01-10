@@ -6,7 +6,7 @@ from flask_jsglue import JSGlue
 from config import config
 from .views import page_not_found, server_error, method_not_allowed
 
-app_version = '0.1.13'
+app_version = '0.1.18'
 
 bootstrap = Bootstrap()
 db = SQLAlchemy(session_options={'autoflush': False})
