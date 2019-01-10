@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% import "_macros.html" as macros %}
-{% block title %}{{ context['title'] }}{% endblock %}
+{% block title %}Категории{% endblock %}
 {% block head %}
 {{ super() }}
 <link rel="stylesheet" href = "{{ url_for('static', filename='css/categories.css') }}?ver={{ context['app_version'] }}">
@@ -13,7 +13,57 @@
     <h3>Категории исполнителей</h3>
     <div class="row">
         <div class="col-sm-2">
-            <button type="button" class="btn btn-danger btn-block" style="display: none;" id="deleteItems">
+            <button type="button" class="btn btn-danger btn-block" style="display: none;" id="deleteCategories">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Удалить
+            </button>
+        </div>
+        <div class="col-sm-2 col-sm-offset-8">
+            <button type="button" class="btn btn-primary btn-block" id="addCategory">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Добавить
+            </button>
+        </div>
+    </div>
+    <div class="empty-box-16"></div>
+    {% if context['categories'] %}
+    <div class="list-group">
+        {% for item in context['categories'] %}
+            {% if context['category'] and context['category'] == item.id %}
+            <a href="{{ url_for('categories.gentres', category_id=item.id) }}" class="list-group-item active">{{ item.title }}</a>
+            {% else %}
+            <a href="{{ url_for('categories.gentres', category_id=item.id) }}" class="list-group-item">{{ item.title }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="emptylist">Список пуст</div>
+    {% endif %}
+    <div class="empty-box-16"></div>
+</div>
+{% include '_modalInputText.html' %}
+<form id="formEditCategory" action="{{ url_for('categories.index') }}" method="post">
+    <input type="hidden" name="id" id="formEditCategoryId"/>
+    <input type="hidden" name="title" id="formEditCategoryTitle"/>
+</form>
+
+{% if context['category'] %}
+<div class="container-fluid">
+    <div class="btn-group btn-group-justified" role="group" aria-label="modes">
+        {% if context['mode_gentre'] %}
+        <a href="{{ url_for('categories.gentres', category_id=context['category']) }}" class="btn btn-primary" role="button">Жанр</a>
+        {% else %}
+        <a href="{{ url_for('categories.gentres', category_id=context['category']) }}" class="btn btn-default" role="button">Жанр</a>
+        {% endif %}
+        {% if context['mode_age'] %}
+        <a href="{{ url_for('categories.ages', category_id=context['category']) }}" class="btn btn-primary" role="button">Возраст</a>
+        {% else %}
+        <a href="{{ url_for('categories.ages', category_id=context['category']) }}" class="btn btn-default" role="button">Возраст</a>
+        {% endif %}
+        <a href="#" class="btn btn-default" role="button">Направление</a>
+    </div>
+    <div class="empty-box-16"></div>
+    <div class="row">
+        <div class="col-sm-2">
+            <button type="button" class="btn btn-danger btn-block" style="display: none;" id="deleteItem">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Удалить
             </button>
         </div>
@@ -34,12 +84,16 @@
     <div class="emptylist">Список пуст</div>
     {% endif %}
     <div class="empty-box-16"></div>
+    {% if context['mode_gentre'] %}
+    <form id="formEditItem" action="{{ url_for('categories.gentres', category_id=context['category']) }}" method="post">
+    {% elif context['mode_age'] %}
+    <form id="formEditItem" action="{{ url_for('categories.ages', category_id=context['category']) }}" method="post">
+    {% endif %}
+        <input type="hidden" name="id" id="formEditItemId"/>
+        <input type="hidden" name="title" id="formEditItemTitle"/>
+    </form>
 </div>
-{% include '_modalInputText.html' %}
-<form id="formEditText" action="{{ url_for('categories.index') }}" method="post">
-    <input type="hidden" name="id" id="formEditTextId"/>
-    <input type="hidden" name="title" id="formEditTextTitle"/>
-</form>
+{% endif %}
 {% endblock %}
 {% block scripts %}
 {{ super() }}

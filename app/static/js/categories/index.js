@@ -1,18 +1,17 @@
 $(document).on('ready', function() {
     $('#modalInputText').on('shown.bs.modal', function() {
-        var jmi = $('#modalInput');
-        jmi.focus();
-        jmi.keyup(function(e) {
-            if (e.keyCode == 13) confirmItem();
-        });
+        $('#modalInput').focus();
     });
 
-    $('#addItem').on('click', function() {
-        $('#formEditTextId').val(0);
-        inputTextDialog('Введите текст', '', confirmItem);
+    $('#addCategory').on('click', function() {
+        $('#formEditCategoryId').val(0);
+        inputTextDialog('Введите текст', '', confirmCategoryItem);
+        $('#modalInput').keyup(function(e) {
+            if (e.keyCode == 13) confirmCategoryItem();
+        });
     });
-    function confirmItem() {
-        $('#formEditTextTitle').val($('#modalInput').val());
-        $('#formEditText').submit();
+    function confirmCategoryItem() {
+        $('#formEditCategoryTitle').val($('#modalInput').val());
+        $('#formEditCategory').submit();
     }
 });

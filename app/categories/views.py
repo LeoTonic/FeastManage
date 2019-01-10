@@ -24,5 +24,33 @@ def index():
 
     context = dict()
     context['app_version'] = app_version
-    context['items'] = Category.query.all()
+    context['categories'] = Category.query.all()
+    return render_template('categories/index.html', context=context)
+
+
+@categories.route('/<int:category_id>/gentres', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def gentres(category_id):
+    """Обработка жанров"""
+    context = dict()
+    context['app_version'] = app_version
+    context['mode_gentre'] = True
+    context['categories'] = Category.query.all()
+    context['category'] = category_id
+    context['items'] = Gentre.query.filter_by(category_id=category_id).all()
+    return render_template('categories/index.html', context=context)
+
+
+@categories.route('/<int:category_id>/ages', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def ages(category_id):
+    """Обработка возрастных категорий"""
+    context = dict()
+    context['app_version'] = app_version
+    context['mode_age'] = True
+    context['categories'] = Category.query.all()
+    context['category'] = category_id
+    context['items'] = []
     return render_template('categories/index.html', context=context)
