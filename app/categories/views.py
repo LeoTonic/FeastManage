@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required
 from app import app_version, db
 from app.accounts import admin_required
-from app.models import Category, Gentre, Age, Direction, Composition
+from app.models import Category, Gentre, Age, Direction, Composition, Level
 
 categories = Blueprint('categories', __name__)
 
@@ -136,4 +136,29 @@ def compositions(category_id):
     context['categories'] = Category.query.all()
     context['category'] = category_id
     context['items'] = Composition.query.filter_by(category_id=category_id).all()
+    return render_template('categories/index.html', context=context)
+
+
+@categories.route('/<int:category_id>/levels', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def levels(category_id):
+    """Обработка уровней"""
+    if request.method == 'POST':
+        # Запись новой или обновление
+        level = Level.query.filter_by(id=request.form.get('id')).first()
+        if level is None:
+            level = Level()
+        level.title = request.form.get('title')
+        level.category_id = category_id
+        db.session.add(level)
+        db.session.commit()
+        return redirect(url_for('.levels', category_id=category_id))
+    context = dict()
+    context['app_version'] = app_version
+    context['mode_level'] = True
+    context['mode_url'] = 'categories.levels'
+    context['categories'] = Category.query.all()
+    context['category'] = category_id
+    context['items'] = Level.query.filter_by(category_id=category_id).all()
     return render_template('categories/index.html', context=context)

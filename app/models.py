@@ -124,6 +124,13 @@ class Category(db.Model):
                                    lazy='joined',
                                    passive_deletes=True)
 
+    # уровни
+    levels = db.relationship('Level',
+                             cascade="all, delete-orphan",
+                             backref='category',
+                             lazy='joined',
+                             passive_deletes=True)
+
     def __repr__(self):
         return '<Category: {}>'.format(self.title)
 
@@ -178,6 +185,19 @@ class Composition(db.Model):
 
     def __repr__(self):
         return '<Composition: {}>'.format(self.title)
+
+
+class Level(db.Model):
+    """Подкатегория Уровень"""
+    __tablename__ = 'levels'
+    id = db.Column(db.Integer, primary_key=True)
+    # наименование
+    title = db.Column(db.String(255), nullable=False)
+    # категория
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id', ondelete='CASCADE'))
+
+    def __repr__(self):
+        return '<Level: {}>'.format(self.title)
 
 
 @login_manager.user_loader

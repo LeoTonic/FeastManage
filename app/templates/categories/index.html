@@ -66,6 +66,8 @@
             <a href="{{ url_for('categories.directions', category_id=context['category']) }}">Направление</a></li>
         {% if context['mode_composition'] %}<li role="presentation" class="active">{% else %}<li role="presentation">{% endif %}
             <a href="{{ url_for('categories.compositions', category_id=context['category']) }}">Состав</a></li>
+        {% if context['mode_level'] %}<li role="presentation" class="active">{% else %}<li role="presentation">{% endif %}
+            <a href="{{ url_for('categories.levels', category_id=context['category']) }}">Уровень</a></li>
     </ul>
     <div class="empty-box-16"></div>
     <div class="row">
