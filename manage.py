@@ -38,8 +38,11 @@ def cleardb():
 
 @manager.command
 def deploy():
-    from flask_migrate import upgrade
+    from flask_migrate import init, migrate, upgrade
     import fake
+
+    init()
+    migrate()
     upgrade()
     fake.clear_database()
     fake.create_superuser()
