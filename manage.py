@@ -26,6 +26,7 @@ def fakefill():
     fake.clear_database()
     fake.create_superuser()
     fake.fake_users()
+    fake.create_categories()
 
 
 @manager.command
@@ -33,6 +34,17 @@ def cleardb():
     import fake
     fake.clear_database()
     fake.create_superuser()
+
+
+@manager.command
+def deploy():
+    from flask_migrate import upgrade
+    import fake
+    upgrade()
+    fake.clear_database()
+    fake.create_superuser()
+    fake.fake_users()
+    fake.create_categories()
 
 
 if __name__ == '__main__':
