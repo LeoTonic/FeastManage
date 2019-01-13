@@ -26,6 +26,10 @@ def create_app(config_name):
     login_manager.init_app(app)
     jsglue.init_app(app)
 
+    if app.config['SSL_REDIRECT']:
+        from flask_sslify import SSLify
+        sslify = SSLify(app)
+
     from .performers.views import performers as performers_blueprint
     app.register_blueprint(performers_blueprint)
 

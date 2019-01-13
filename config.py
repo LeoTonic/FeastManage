@@ -52,6 +52,7 @@ class TestingConfig(Config):
 class ProductionConfig(Config):
     # SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
     #     'sqlite:///' + os.path.join(basedir, 'fmanage.db')
+    SSL_REDIRECT = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or "postgresql://{}:{}@{}:{}/{}".format(
         os.getenv('DB_USER'),
         os.getenv('DB_PASSWORD'),
@@ -89,6 +90,10 @@ class HerokuConfig(ProductionConfig):
     @classmethod
     def init_app(cls, app):
         ProductionConfig.init_app(app)
+
+        # handle reverse proxy server headers
+        from werkzeug.contrib.fixers import ProxyFix
+        app.wsgi_app = ProxyFix(app.wsgi_app)
 
         # log to stderr
         import logging
