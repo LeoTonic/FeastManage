@@ -1,4 +1,5 @@
 import os
+import random
 from app import db
 from app.models import User, Roles, Category, Gentre, Age, Direction, Composition, Level
 
@@ -30,32 +31,84 @@ def create_superuser():
 
 
 def fake_users():
+    nl_arr = [
+        'Иванов',
+        'Петров',
+        'Сидоров',
+        'Михайлов',
+        'Попов'
+    ]
+    nm_arr = [
+        'Сергеевич',
+        'Павлович',
+        'Андреевич',
+        'Тимофеевич',
+        'Аркадьевич'
+    ]
+    nf_arr = [
+        'Семен',
+        'Анатолий',
+        'Константин',
+        'Василий',
+        'Геннадий'
+    ]
+    c_arr = [
+        'Москва',
+        'Екатеринбург',
+        'Сочи',
+        'Владивосток',
+        'Красноярск'
+    ]
+
+    cm_arr = [
+        'ЗАО Ария',
+        'ЗАО Комплект',
+        'ПАО Территория',
+        'ПАО Рассвет',
+        'ЗАО Иволга'
+    ]
     counter = 0
-    for x in range(5):
+    for x in range(10):
         u = User()
         u.login = 'user{}'.format(x)
-        u.name_first = 'Имя {}'.format(x)
-        u.name_last = 'Фамилия {}'.format(x)
-        u.email = 'user{}@gmail.com'.format(x)
-        u.city = 'Город {}'.format(x)
-        u.company = 'Компания {}'.format(x)
-        u.contacts = '(123) 123-12-12'
+        u.name_first = random.choice(nf_arr)
+        u.name_last = random.choice(nl_arr)
+        u.name_middle = random.choice(nm_arr)
+        u.email = 'example@example.com'
+        u.city = random.choice(c_arr)
+        u.company = random.choice(cm_arr)
+        u.contacts = '(000) 123-45-67'
         u.role = Roles.USER
         db.session.add(u)
         counter += 1
-    for x in range(5):
+
+    for x in range(10):
         u = User()
         u.login = 'manager{}'.format(x)
-        u.name_first = 'МанИмя {}'.format(x)
-        u.name_last = 'МанФам {}'.format(x)
-        u.email = 'manager{}@gmail.com'.format(x)
-        u.city = 'МанГород {}'.format(x)
-        u.company = 'МанКомпания {}'.format(x)
-        u.contacts = '(456) 123-12-12'
+        u.name_first = random.choice(nf_arr)
+        u.name_last = random.choice(nl_arr)
+        u.name_middle = random.choice(nm_arr)
+        u.email = 'example@example.com'
+        u.city = random.choice(c_arr)
+        u.company = random.choice(cm_arr)
+        u.contacts = '(000) 123-45-67'
         u.role = Roles.MANAGER
         db.session.add(u)
         counter += 1
 
+    u = User()
+    u.login = 'admin0'
+    u.name_first = random.choice(nf_arr)
+    u.name_last = random.choice(nl_arr)
+    u.name_middle = random.choice(nm_arr)
+    u.email = 'example@example.com'
+    u.city = random.choice(c_arr)
+    u.company = random.choice(cm_arr)
+    u.contacts = '(000) 123-45-67'
+    u.role = Roles.ADMIN
+    db.session.add(u)
+
+    counter += 1
     db.session.commit()
     print('fake users added successfully: {}'.format(counter))
 

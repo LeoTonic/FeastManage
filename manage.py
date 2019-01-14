@@ -41,9 +41,9 @@ def deploy():
     from flask_migrate import init, migrate, upgrade
     import fake
 
-    init()
-    migrate()
-    upgrade()
+    # init()
+    # migrate()
+    # upgrade()
     fake.clear_database()
     fake.create_superuser()
     fake.fake_users()

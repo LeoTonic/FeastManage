@@ -104,32 +104,32 @@ class Category(db.Model):
     gentres = db.relationship('Gentre',
                               cascade="all, delete-orphan",
                               backref='category',
-                              lazy='joined',
+                              lazy='dynamic',
                               passive_deletes=True)
     # возрастные группы
     ages = db.relationship('Age',
                            cascade="all, delete-orphan",
                            backref='category',
-                           lazy='joined',
+                           lazy='dynamic',
                            passive_deletes=True)
     # направления
     directions = db.relationship('Direction',
                                  cascade="all, delete-orphan",
                                  backref='category',
-                                 lazy='joined',
+                                 lazy='dynamic',
                                  passive_deletes=True)
     # составы
     compositions = db.relationship('Composition',
                                    cascade="all, delete-orphan",
                                    backref='category',
-                                   lazy='joined',
+                                   lazy='dynamic',
                                    passive_deletes=True)
 
     # уровни
     levels = db.relationship('Level',
                              cascade="all, delete-orphan",
                              backref='category',
-                             lazy='joined',
+                             lazy='dynamic',
                              passive_deletes=True)
 
     def __repr__(self):
