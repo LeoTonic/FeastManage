@@ -72,7 +72,7 @@
     <div class="empty-box-16"></div>
     <div class="row">
         <div class="col-sm-2">
-            <button type="button" class="btn btn-danger btn-block" style="display: none;" id="deleteItem">
+            <button type="button" class="btn btn-danger btn-block" style="display: none;" id="deleteItems">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Удалить
             </button>
         </div>
@@ -84,11 +84,16 @@
     </div>
     <div class="empty-box-16"></div>
     {% if context['items'] %}
-    <div class="list-group">
+    <ul class="list-group">
         {% for item in context['items'] %}
-        <a href="#" class="list-group-item">{{ item.title }}</a>
+        <li class="toolrelative edititem list-group-item" id="{{ item.id }}">
+            <span>{{ item.title }}</span>
+            <div class="usertool" id="edit{{ item.id }}" title="{{ item.title }}" style="display:none">
+                <span class="glyphicon glyphicon-pencil usertool-icon" aria-hidden="true"></span>
+            </div>
+        </li>
         {% endfor %}
-    </div>
+    </ul>
     {% else %}
     <div class="emptylist">Список пуст</div>
     {% endif %}

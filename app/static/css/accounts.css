@@ -47,36 +47,6 @@ tr.user:hover {
     background-color: #f0f0f0;
 }
 
-.toolrelative {
-    position: relative;
-}
-
-.usertool {
-    position: absolute;
-    width: 32px;
-    height: 32px;
-    background-color: white;
-    border-radius: 50%;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    right: 0px;
-    top: calc(50% - 16px);
-    padding: 3px;
-    text-align: center;
-}
-.usertool:hover {
-    box-shadow: 0 0 10px rgba(0,0,0,0.75);
-}
-
-.usertool-icon {
-    line-height: 24px;
-    color: #666 !important;
-}
-
-.lockedtool {
-    width: 20px;
-    height: 20px;
-}
-
 tr.user--selected {
     background-color: #428bca;
     color: #eee;

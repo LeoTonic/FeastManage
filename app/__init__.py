@@ -6,7 +6,7 @@ from flask_jsglue import JSGlue
 from config import config
 from .views import page_not_found, server_error, method_not_allowed
 
-app_version = '0.1.18'
+app_version = '0.1.20'
 
 bootstrap = Bootstrap()
 db = SQLAlchemy(session_options={'autoflush': False})
@@ -26,7 +26,7 @@ def create_app(config_name):
     login_manager.init_app(app)
     jsglue.init_app(app)
 
-    if app.config['SSL_REDIRECT']:
+    if not app.config['DEBUG'] and app.config['SSL_REDIRECT']:
         from flask_sslify import SSLify
         sslify = SSLify(app)
 

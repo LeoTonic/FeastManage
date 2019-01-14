@@ -1,0 +1,13 @@
+li.edititem {
+    cursor: pointer;
+}
+
+li.item--selected {
+    background-color: #428bca;
+    color: #eee;
+}
+
+li.item--selected:hover {
+    background-color: #327bba;
+    color: #fff;
+}

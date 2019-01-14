@@ -27,20 +27,22 @@ class DevelopmentConfig(Config):
     DEBUG = True
     # SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
     #     'sqlite:///' + os.path.join(basedir, 'fmanage-dev.db')
-    # SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{}:{}@{}:{}/{}".format(
-    #     os.getenv('DB_USER'),
-    #     os.getenv('DB_PASSWORD'),
-    #     os.getenv('DB_SERVER'),
-    #     os.getenv('DB_PORT'),
-    #     os.getenv('DB_NAME')
-    # )
-    SQLALCHEMY_DATABASE_URI = "postgresql://{}:{}@{}:{}/{}".format(
-        os.getenv('DB_USER'),
-        os.getenv('DB_PASSWORD'),
-        os.getenv('DB_SERVER'),
-        os.getenv('DB_PORT'),
-        os.getenv('DB_NAME')
-    )
+    if os.environ.get('DB_MYSQL'):
+        SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{}:{}@{}:{}/{}".format(
+            os.getenv('DB_USER'),
+            os.getenv('DB_PASSWORD'),
+            os.getenv('DB_SERVER'),
+            os.getenv('DB_PORT'),
+            os.getenv('DB_NAME')
+        )
+    else:
+        SQLALCHEMY_DATABASE_URI = "postgresql://{}:{}@{}:{}/{}".format(
+            os.getenv('DB_USER'),
+            os.getenv('DB_PASSWORD'),
+            os.getenv('DB_SERVER'),
+            os.getenv('DB_PORT'),
+            os.getenv('DB_NAME')
+        )
 
 
 class TestingConfig(Config):

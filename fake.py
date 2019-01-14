@@ -31,7 +31,7 @@ def create_superuser():
 
 def fake_users():
     counter = 0
-    for x in range(15):
+    for x in range(5):
         u = User()
         u.login = 'user{}'.format(x)
         u.name_first = 'Имя {}'.format(x)
@@ -43,7 +43,7 @@ def fake_users():
         u.role = Roles.USER
         db.session.add(u)
         counter += 1
-    for x in range(15):
+    for x in range(5):
         u = User()
         u.login = 'manager{}'.format(x)
         u.name_first = 'МанИмя {}'.format(x)
@@ -62,6 +62,7 @@ def fake_users():
 
 def create_categories():
     cat_counter = 0
+    # Вокал
     cat = Category()
     cat.title = 'Вокал'
     db.session.add(cat)
@@ -113,6 +114,70 @@ def create_categories():
         'Начинающий',
         'Любительская',
         'Профессиональная',
+    ]
+    for item in lev_array:
+        lev_new = Level()
+        lev_new.title = item
+        lev_new.category = cat
+        db.session.add(lev_new)
+    cat_counter += 1
+
+    # Хореография
+    cat = Category()
+    cat.title = 'Хореография'
+    db.session.add(cat)
+    gen = Gentre()
+    gen.title = 'Хореография'
+    gen.category = cat
+    db.session.add(gen)
+
+    dir_array = [
+        'Классический танец',
+        'Народный танец',
+        'Эстрадный танец',
+        'Народно-сценический танец',
+        'Стилизованный танец',
+        'Бальная хореография',
+        'Техники современного танца',
+        'Мажоретки',
+        'Театрально-хореографическая миниатюра',
+        'Детский танец'
+    ]
+    for item in dir_array:
+        dir_new = Direction()
+        dir_new.title = item
+        dir_new.category = cat
+        db.session.add(dir_new)
+    com_array = [
+        'Ансамбль',
+        'Ансамбль (мф)',
+        'Соло',
+    ]
+    for item in com_array:
+        com_new = Composition()
+        com_new.title = item
+        com_new.category = cat
+        db.session.add(com_new)
+    age_array = [
+        'до 6 лет',
+        '7-9 лет',
+        '10-12 лет',
+        '13-15 лет',
+        '16-19 лет',
+        '20-25 лет',
+        'от 26 и старше',
+        'смешанная'
+    ]
+    for item in age_array:
+        age_new = Age()
+        age_new.title = item
+        age_new.category = cat
+        db.session.add(age_new)
+    lev_array = [
+        'Начинающий',
+        'Любительская',
+        'Профессиональная',
+        'Любители (особые)',
     ]
     for item in lev_array:
         lev_new = Level()
