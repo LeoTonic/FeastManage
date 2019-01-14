@@ -13,9 +13,65 @@
 {% endblock %}
 {% block page_content %}
 <div class="container-fluid">
-    {{ wtf.quick_form(context['form']) }}
-    <span class="label label-info">Описание роли</span>
-    <span class="help-block" id="role-description"></span>
+    {% if context['form'].edit %}
+    <form class="form" action="{{ url_for('.edituser', user_id=context['user'].id) }}" method="post">
+    {% else %}
+    <form class="form"  action="{{ url_for('.newuser') }}" method="post">
+    {% endif %}
+        <div class="row">
+            <div class="col-sm-12 form-group">{{ context['form'].login }}</div>
+        </div>
+        <div class="empty-box-16"></div>
+        <div class="row">
+            <div class="col-sm-4 form-group">
+                <label for="name_last">{{ context['form'].name_last.label }}</label>
+                {{ context['form'].name_last }}
+            </div>
+            <div class="col-sm-4 form-group">
+                <label for="name_first">{{ context['form'].name_first.label }}</label>
+                {{ context['form'].name_first }}
+            </div>
+            <div class="col-sm-4 form-group">
+                <label for="name_middle">{{ context['form'].name_middle.label }}</label>
+                {{ context['form'].name_middle }}
+            </div>
+        </div>
+        <div class="empty-box-16"></div>
+        <div class="row">
+            <div class="col-sm-4 form-group">
+                <label for="email">{{ context['form'].email.label }}</label>
+                {{ context['form'].email }}
+            </div>
+            <div class="col-sm-8 form-group">
+                <label for="contacts">{{ context['form'].contacts.label }}</label>
+                {{ context['form'].contacts }}
+            </div>
+        </div>
+        <div class="empty-box-16"></div>
+        <div class="row">
+            <div class="col-sm-4 form-group">
+                <label for="city">{{ context['form'].city.label }}</label>
+                {{ context['form'].city }}
+            </div>
+            <div class="col-sm-8 form-group">
+                <label for="company">{{ context['form'].company.label }}</label>
+                {{ context['form'].company }}
+            </div>
+        </div>
+        <div class="empty-box-16"></div>
+        <div class="row">
+            <div class="col-sm-4 form-group">
+                <label for="role">{{ context['form'].role.label }}</label>
+                {{ context['form'].role }}
+            </div>
+            <div class="col-sm-8 form-group">
+                <!--{{ wtf.quick_form(context['form']) }}-->
+                <span class="label label-info">Описание роли</span>
+                <span class="help-block" id="role-description"></span>
+            </div>
+        </div>
+        {{ context['form'].csrf_token }}
+    </form><div class="empty-box-16"></div>
     <div class="row">
         <div class="col-sm-2">
             {% if context['form'].edit %}

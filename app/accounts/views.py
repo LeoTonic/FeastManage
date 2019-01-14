@@ -152,6 +152,7 @@ def edituser(user_id):
         return redirect(url_for('.index'))
     context = dict()
     context['form'] = form
+    context['user'] = user
     context['app_version'] = app_version
     return render_template('accounts/profile.html', context=context)
 

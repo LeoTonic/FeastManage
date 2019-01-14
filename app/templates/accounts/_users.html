@@ -24,7 +24,7 @@
                     {{ macros.role_image(user) }}
                     {{ user.role_name }}
                 </td>
-                <td class="toolrelative hidden-md hidden-sm hidden-xs">
+                <td class="toolrelative">
                     {% if user.has_password %}
                     <img class="lockedtool" src="{{ url_for('static', filename='img/locked.png') }}" title="Защищен паролем"/>
                     {% endif %}

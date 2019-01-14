@@ -1,5 +1,7 @@
 $(document).on('ready', function() {
     $('#login').prop('disabled', true);
+    $('input').addClass('form-control');
+    $('select').addClass('form-control');
 
     setRoleDescription($('#role'));
     $('#role').on('change', function() { setRoleDescription($(this)); });
