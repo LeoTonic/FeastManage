@@ -34,13 +34,16 @@ $(document).on('ready', function() {
         confirmDialog('Удаление', 'Уверены, что хотите удалить выбранную категорию?', confirmDeleteCategory);
     });
 
-
     $('#addItem').on('click', function() {
         $('#formEditItemId').val(0);
         inputTextDialog('Введите текст', '', confirmListItem);
         $('#modalInput').keyup(function(e) {
             if (e.keyCode == 13) confirmListItem();
         });
+    });
+
+    $('#deleteItems').on('click', function() {
+        confirmDialog('Удаление', 'Уверены, что хотите удалить выбранные элементы?', confirmDeleteItems);
     });
 
     $('.usertool').on('click', function(e) {
@@ -88,5 +91,13 @@ $(document).on('ready', function() {
         }
         selectedItems.splice(itemIndex, 1);
         return false;
+    }
+
+    function confirmDeleteItems() {
+        var suForm = $('#formDeleteItems');
+        $.each(selectedItems, function(index, value) {
+            $("<input type='hidden'/>").attr('name', 'items[]').val(value).appendTo(suForm);
+        });
+        $('#formDeleteItems').submit();
     }
 });

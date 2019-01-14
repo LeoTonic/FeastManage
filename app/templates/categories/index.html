@@ -46,14 +46,6 @@
 </div>
 {% include '_modalInputText.html' %}
 {% include '_modalOkCancel.html' %}
-<form id="formEditCategory" action="{{ url_for('categories.index') }}" method="post">
-    <input type="hidden" name="id" id="formEditCategoryId"/>
-    <input type="hidden" name="title" id="formEditCategoryTitle"/>
-</form>
-<form id="formDeleteCategory" action="{{ url_for('categories.category_delete') }}" method="post">
-    <input type="hidden" name="id" id="formDeleteCategoryId" value="{{ context['category'] }}"/>
-</form>
-
 {% if context['category'] %}
 <div class="container-fluid">
     <h3>Подкатегории</h3>
@@ -98,9 +90,19 @@
     <div class="emptylist">Список пуст</div>
     {% endif %}
     <div class="empty-box-16"></div>
+    <form id="formEditCategory" action="{{ url_for('categories.index') }}" method="post">
+        <input type="hidden" name="id" id="formEditCategoryId"/>
+        <input type="hidden" name="title" id="formEditCategoryTitle"/>
+    </form>
     <form id="formEditItem" action="{{ url_for(context['mode_url'], category_id=context['category']) }}" method="post">
         <input type="hidden" name="id" id="formEditItemId"/>
         <input type="hidden" name="title" id="formEditItemTitle"/>
+    </form>
+    <form id="formDeleteCategory" action="{{ url_for('categories.category_delete') }}" method="post">
+        <input type="hidden" name="id" id="formDeleteCategoryId" value="{{ context['category'] }}"/>
+    </form>
+    <form id="formDeleteItems" action="{{ url_for('categories.items_delete', category_id=context['category']) }}" method="post">
+        <input type="hidden" name="mode_url" value="{{ context['mode_url'] }}"/>
     </form>
 </div>
 {% endif %}
