@@ -1,7 +1,7 @@
 from flask import Blueprint, flash, render_template, redirect, url_for, request, current_app, abort, jsonify
 from flask_login import login_user, logout_user, login_required, current_user
 from app import app_version, db
-from app.models import User
+from app.models import User, Sort
 from .forms import LoginForm, PasswordForm, AdminProfileForm
 from . import admin_required
 
@@ -13,13 +13,32 @@ accounts = Blueprint('accounts', __name__)
 @admin_required
 def index():
     page = request.args.get('page', 1, type=int)
-    pagination = User.query.filter(User.login != 'admin').paginate(
-        page, per_page=current_app.config['ITEMS_PER_PAGE'],
-        error_out=False)
+    sort_type = request.args.get('stype', Sort.NONE, type=int)
+    query = User.query.filter(User.login != 'admin')
+    if sort_type == Sort.USER_DESC:
+        query = query.order_by(User.name_last.desc()).order_by(User.name_first.desc()).order_by(User.name_middle.desc())
+    elif sort_type == Sort.USER:
+            query = query.order_by(User.name_last).order_by(User.name_first).order_by(User.name_middle)
+    elif sort_type == Sort.CITY:
+        query = query.order_by(User.city)
+    elif sort_type == Sort.CITY_DESC:
+        query = query.order_by(User.city.desc())
+    elif sort_type == Sort.COMPANY:
+        query = query.order_by(User.company)
+    elif sort_type == Sort.COMPANY_DESC:
+        query = query.order_by(User.company.desc())
+    elif sort_type == Sort.ROLE:
+        query = query.order_by(User.role)
+    elif sort_type == Sort.ROLE_DESC:
+        query = query.order_by(User.role.desc())
+
+    pagination = query.paginate(page, per_page=current_app.config['ITEMS_PER_PAGE'], error_out=False)
     context = dict()
     context['users'] = pagination.items
     context['pagination'] = pagination
     context['app_version'] = app_version
+    context['sort_type'] = sort_type
+    context['sort'] = Sort
     return render_template('accounts/index.html', context=context)
 
 

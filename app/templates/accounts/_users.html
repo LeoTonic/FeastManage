@@ -3,11 +3,75 @@
     <table class="table">
         <thead>
             <tr>
-                <th class="col-sm_2">Имя Фамилия</th>
-                <th class="col-sm-2">Насел.пункт</th>
-                <th class="col-sm-3">Организация</th>
+                <th class="col-sm_2">
+                    {% if context['sort_type'] == context['sort'].USER %}
+                    <a href="{{ url_for('.index', stype=context['sort'].USER_DESC, page=context['pagination'].page) }}">
+                        <span>Фамилия Имя</span>
+                        <span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span>
+                    </a>
+                    {% elif context['sort_type'] == context['sort'].USER_DESC %}
+                    <a href="{{ url_for('.index', stype=context['sort'].USER, page=context['pagination'].page) }}">
+                        <span>Фамилия Имя</span>
+                        <span class="glyphicon glyphicon-sort-by-alphabet-alt" aria-hidden="true"></span>
+                    </a>
+                    {% else %}
+                    <a href="{{ url_for('.index', stype=context['sort'].USER, page=context['pagination'].page) }}">
+                        <span>Фамилия Имя</span>
+                    </a>
+                    {% endif %}
+                </th>
+                <th class="col-sm-2">
+                    {% if context['sort_type'] == context['sort'].CITY %}
+                    <a href="{{ url_for('.index', stype=context['sort'].CITY_DESC, page=context['pagination'].page) }}">
+                        <span>Насел.пункт</span>
+                        <span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span>
+                    </a>
+                    {% elif context['sort_type'] == context['sort'].CITY_DESC %}
+                    <a href="{{ url_for('.index', stype=context['sort'].CITY, page=context['pagination'].page) }}">
+                        <span>Насел.пункт</span>
+                        <span class="glyphicon glyphicon-sort-by-alphabet-alt" aria-hidden="true"></span>
+                    </a>
+                    {% else %}
+                    <a href="{{ url_for('.index', stype=context['sort'].CITY, page=context['pagination'].page) }}">
+                        <span>Насел.пункт</span>
+                    </a>
+                    {% endif %}
+                </th>
+                <th class="col-sm-3">
+                    {% if context['sort_type'] == context['sort'].COMPANY %}
+                    <a href="{{ url_for('.index', stype=context['sort'].COMPANY_DESC, page=context['pagination'].page) }}">
+                        <span>Организация</span>
+                        <span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span>
+                    </a>
+                    {% elif context['sort_type'] == context['sort'].COMPANY_DESC %}
+                    <a href="{{ url_for('.index', stype=context['sort'].COMPANY, page=context['pagination'].page) }}">
+                        <span>Организация</span>
+                        <span class="glyphicon glyphicon-sort-by-alphabet-alt" aria-hidden="true"></span>
+                    </a>
+                    {% else %}
+                    <a href="{{ url_for('.index', stype=context['sort'].COMPANY, page=context['pagination'].page) }}">
+                        <span>Организация</span>
+                    </a>
+                    {% endif %}
+                </th>
                 <th class="col-sm-2 hidden-xs">Контакты</th>
-                <th class="col-sm-2 hidden-md hidden-sm hidden-xs">Роль</th>
+                <th class="col-sm-2 hidden-md hidden-sm hidden-xs">
+                    {% if context['sort_type'] == context['sort'].ROLE %}
+                    <a href="{{ url_for('accounts.index', stype=context['sort'].ROLE_DESC, page=context['pagination'].page) }}">
+                        <span>Роль</span>
+                        <span class="glyphicon glyphicon-sort-by-order" aria-hidden="true"></span>
+                    </a>
+                    {% elif context['sort_type'] == context['sort'].ROLE_DESC %}
+                    <a href="{{ url_for('accounts.index', stype=context['sort'].ROLE, page=context['pagination'].page) }}">
+                        <span>Роль</span>
+                        <span class="glyphicon glyphicon-sort-by-order-alt" aria-hidden="true"></span>
+                    </a>
+                    {% else %}
+                    <a href="{{ url_for('accounts.index', stype=context['sort'].ROLE, page=context['pagination'].page) }}">
+                        <span>Роль</span>
+                    </a>
+                    {% endif %}
+                </th>
                 <th class="col-sm-1 hidden-md hidden-sm hidden-xs">Дополн.</th>
             </tr>
         </thead>
@@ -15,7 +79,7 @@
             {% for user in context['users'] %}
             <tr class="user edituser" id="{{ user.id }}">
                 <td>
-                    {{ user.name_first }} {% if user.name_last %}{{ user.name_last }}{% endif %}
+                    {{ user.name_last }} {{ user.name_first }}
                 </td>
                 <td>{% if user.city %}{{ user.city }}{% endif %}</td>
                 <td>{% if user.company %}{{ user.company }}{% endif %}</td>
@@ -38,7 +102,7 @@
     </table>
     {% if context['pagination'] and context['users'] %}
         <div class="pagination">
-            {{ macros.pagination_widget(context['pagination'], '.index') }}
+            {{ macros.pagination_widget(context['pagination'], context['sort_type'], '.index') }}
         </div>
     {% endif %}
     {% else %}

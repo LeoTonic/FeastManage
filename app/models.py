@@ -29,6 +29,19 @@ class Roles:
     ADMIN_NAME = u'Администратор'
 
 
+class Sort:
+    # Флаги сортировки
+    NONE = 0
+    USER = 1
+    USER_DESC = 2
+    CITY = 3
+    CITY_DESC = 4
+    COMPANY = 5
+    COMPANY_DESC = 6
+    ROLE = 7
+    ROLE_DESC = 8
+
+
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
